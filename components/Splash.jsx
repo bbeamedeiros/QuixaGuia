@@ -20,3 +20,15 @@ export default function Splash({ navigation }) {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    logo: {
+        fontSize: 40,
+        fontWeight: 'bold',
+    }
+});
