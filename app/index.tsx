@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 
-export default function Page() {
+/*export default function Page() {
   return (
     <View style={styles.container}>
       <View style={styles.main}>
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
     fontSize: 36,
     color: "#38434D",
   },
-});
+});*/
