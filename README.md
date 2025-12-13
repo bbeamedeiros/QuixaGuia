@@ -19,7 +19,7 @@ O QuixaGuia busca tornar o processo de adaptação **mais leve, colaborativo e p
 
 ## 🎓 Desenvolvimento
 
-Projeto desenvolvido por alunos do curso de **Design Digital** da
+Projeto desenvolvido pelos alunos Beatriz Benevinuto e Natan Henrique do curso de **Design Digital** da
 **Universidade Federal do Ceará (UFC) – Campus Quixadá**.
 
 **Disciplinas:**
