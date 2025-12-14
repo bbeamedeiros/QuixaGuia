@@ -1,15 +1,31 @@
 import {View, Text, StyleSheet, Image, ScrollView, Dimensions} from 'react-native';
 import { useRouter } from 'expo-router';
+import Login from './Login';
 //pega a largura da tela
 const { width } = Dimensions.get('window');
 
 export default function BemVindo(){
     const router = useRouter();
+    //estado que controla a paginação da primeira tela para a segunda
+    const [page, setPage] = useState(0);
 
+    //Função que vai identificar a página que o usuário está ao deslizar
+    const handleScroll = (event) => {
+        const offset = event.nativeEvent.contentOffset.x; //quantos pixels foram empurrados?
+        const activePage = Math.round(offset / width);//divisão para descobrir o índice da página
+        setPage(activePage); //resultado
+  };
     return (
         <View style={styles.container}>
+            <ScrollView 
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={handleScroll}
+            >
 
-            {/*parte de cima - verde claro*/}
+            {/* TELA 1 COMPLETA (Fundo verde escuro + card verde claro)*/}
+
             <View style={styles.header}> 
                 <Text style= {styles.logo}>QuixaGuia</Text>
                 <Text style= {styles.subtitle}>Hospitalidade e Mobilidade Urbana</Text>
@@ -30,8 +46,9 @@ export default function BemVindo(){
                     para se adaptar a Quixadá
                 </Text>
 
-    
-             </View>
+            </View>
+
+            </ScrollView>
         </View>
         
     );
