@@ -24,7 +24,7 @@ export default function BemVindo(){
                 </Text>
 
                 <Text style= {styles.sub}>
-                    Encontre tudo o que você precisa 
+                    Encontre tudo o que você precisa{'\n'}
                     para se adaptar a Quixadá
                 </Text>
 
@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#1F5A2E',
   },
   header: {
@@ -64,15 +63,26 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 70,
     borderTopRightRadius: 70,
     alignItems: 'center',
-    padding: 20,
+    paddingTop: 0,
+    paddingRight: 20,
+    paddingBottom: 20,
+    paddingLeft: 20,
   },
-  image: {
-
+  map: {
+    width: 270,
+    height: 270,
+    marginBottom: 20, 
   },
   title: {
-
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginTop: -9,
+    marginBottom: 2,
+    textAlign: 'center',
   },
   sub: {
-
+    fontSize: 14,
+    textAlign: 'center',
+    marginBottom: 20
   },
 });
