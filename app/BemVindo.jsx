@@ -1,5 +1,7 @@
-import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
+import {View, Text, StyleSheet, Image, ScrollView, Dimensions} from 'react-native';
 import { useRouter } from 'expo-router';
+//pega a largura da tela
+const { width } = Dimensions.get('window');
 
 export default function BemVindo(){
     const router = useRouter();
@@ -28,9 +30,7 @@ export default function BemVindo(){
                     para se adaptar a Quixadá
                 </Text>
 
-                <Pressable onPress={() => router.push('/Login')}>
-                    <Text>Continuar</Text>
-                </Pressable>
+    
              </View>
         </View>
         
@@ -64,9 +64,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 70,
     alignItems: 'center',
     paddingTop: 0,
-    paddingRight: 20,
-    paddingBottom: 20,
-    paddingLeft: 20,
+    padding: 20,
   },
   map: {
     width: 270,
