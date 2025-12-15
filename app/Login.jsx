@@ -10,13 +10,13 @@ export default function LoginPage() {
         <View style={styles.container}>
             {/*Título*/}
             <View style={styles.header}>
-                <Text style={styles.logoRed}>Quixa<Text style={styles.logoGreen}>Guia</Text>
-                </Text>
-                <Text 
-                variant= "bodyMedium"
-                fontSize={16} 
-                marginBottom={40}
+                <Text style={styles.logoRed}>Quixa<Text style={styles.logoGreen}>Guia</Text></Text>
+
+                <Text
+                    variant="bodyMedium"
+                    style={styles.subtitle}
                 >Hospitalidade e Mobilidade Urbana</Text>
+
             </View>
             {/*Formulário de Login*/}
             <View style={styles.inputContainer}>
@@ -38,25 +38,24 @@ export default function LoginPage() {
                     activeOutlineColor="#1F5A2E"
                     style={styles.input}
                 />
-            </View> 
+            </View>
             {/*Botão de Login*/}
-                <Button 
-                    mode="contained"
-                    onPress={() => {}}
-                    buttonColor='#1F5A2E'
-                    contentStyle={{height: 50, width: 205}}
-                    justifyContent= 'center'
-                    style={{marginTop: 30, borderRadius: 25}}
-                > Entrar </Button>
+            <Button
+                mode="contained"
+                onPress={() => { }}
+                buttonColor='#1F5A2E'
+                contentStyle={{ height: 50, width: 205 }}
+                style={{ marginTop: 30, borderRadius: 25 }}
+            > Entrar </Button>
             {/*Esqueci minha senha*/}
-            <Button 
+            <Button
                 mode="text"
-                onPress={() => {}}
+                onPress={() => { }}
                 textColor='#0E3014'
                 marginTop={4}
             > Esqueceu a senha? </Button>
             {/* Criar Conta */}
-            <Button 
+            <Button
                 mode="text"
                 onPress={() => router.push('/CriarConta')}
                 textColor='#9D1B1B'
@@ -79,15 +78,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 20,
     },
-    logoRed: {
+    logoRed:{
         fontSize: 50,
         fontWeight: 'bold',
         color: '#A32D2D', // Tom de vermelho
     },
     logoGreen: {
-        fontSize: 50,
         fontWeight: 'bold',
         color: '#1F5A2E', // Tom de verde
+    },
+    subtitle: {
+        fontSize: 16,
+        color: '#0E3014',
+        marginTop: 4,
     },
     inputContainer: {
         width: '100%',
