@@ -1,6 +1,7 @@
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
-import Login from './Login';
+import LoginPage from './Login';
 //pega a largura da tela
 const { width } = Dimensions.get('window');
 
@@ -46,26 +47,35 @@ export default function BemVindo() {
                             para se adaptar a Quixadá
                         </Text>
 
-                        {/* BOLINHAS DA TELA 1 */}
-                        <View style={styles.pagination}>
+                        {/* BOLINHAS DA TELA 1 - dots de interação*/}
+                        <View style={styles.bolinhas}>
                             <View style={[styles.dot, page === 0 ? styles.activeDot : styles.inactiveDot]} />
                             <View style={[styles.dot, page === 1 ? styles.activeDot : styles.inactiveDot]} />
 
                         </View>
                     </View>
                 </View>
+                {/* TELA 2 (LOGIN) */}
+                <View style={[styles.page, { backgroundColor: '#F4FFE1' }]}>
+                    <LoginPage />
+                </View>
 
-            </ScrollView>
-        </View>
+            </ScrollView >
+        </View >
 
     );
 }
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         justifyContent: 'center',
         backgroundColor: '#1F5A2E',
+    },
+    page: {
+        width: width,
+        flex: 1,
     },
     header: {
         paddingTop: 130,
@@ -106,5 +116,23 @@ const styles = StyleSheet.create({
         fontSize: 14,
         textAlign: 'center',
         marginBottom: 20
+    },
+    bolinhas: {
+        flexDirection: 'row',
+        marginTop: 20,
+    },
+    dot: {
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        marginHorizontal: 8,
+    },
+    activeDot: {
+        backgroundColor: '#1F5A2E'
+    },
+    inactiveDot: {
+        borderWidth: 2,
+        borderColor: '#1F5A2E', // Apenas borda
+        backgroundColor: 'transparent',
     },
 });
