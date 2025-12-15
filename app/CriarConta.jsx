@@ -4,8 +4,18 @@ import { Text, TextInput, Button, IconButton } from 'react-native-paper';
 import { router, useRouter } from 'expo-router';
 
 const { width } = Dimensions.get('window');
-
-const header = ({ router, onBack })
+//header personalizado - recebe tres props 
+const header = ({ router, onBack, title }) => (
+     <View style={styles.header}>
+        <IconButton
+            icon="arrow-left"
+            size={24}
+            onPress={onBack ? onBack : () => router.back()}
+        />
+        <Text style={styles.headerTitle}>{title}</Text>
+     </View>
+);
+   
 
 export default function CriarConta() {
     const router = useRouter();
@@ -47,10 +57,24 @@ export default function CriarConta() {
             <Button onPress={() => { }}>Proprietário</Button>
         </View>
     );
+    {/*2 - DADOS PESSOAIS */ }
     const renderStep2 = () => (
         <KeyboardAvoidingView>
             <ScrollView>
                 <Button onPress= {() => setStep(3)}>Próximo</Button>
             </ScrollView>
         </KeyboardAvoidingView>
+    );
+    {/*3 - CADASTRO FINALIZADO */ }
+    const renderStep3 = () => (
+       <KeyboardAvoidingView>
+            <ScrollView>
+                <Button onPress= {() => {}}>Cadastrar</Button>
+            </ScrollView>
+       </KeyboardAvoidingView>
+    );
+
+    return (
+        <View style={styles.container}>
     )
+    
