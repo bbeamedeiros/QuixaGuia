@@ -57,7 +57,7 @@ export default function BemVindo() {
                 </View>
                 {/* TELA 2 (LOGIN) */}
                 <View style={[styles.page, { backgroundColor: '#F4FFE1' }]}>
-                    <LoginPage />
+                    <LoginPage page={page}/>
                 </View>
 
             </ScrollView >
