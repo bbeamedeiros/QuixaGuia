@@ -40,6 +40,7 @@ export default function LoginPage() {
                     onPress={() => {}}
                     buttonColor='#1F5A2E'
                     style={styles.button}
+                    contentStyle={{height: 50, width: 205}}
                 > Entrar </Button>
             {/*Esqueci minha senha*/}
             <Button 
