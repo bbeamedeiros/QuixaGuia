@@ -31,7 +31,7 @@ export default function LoginPage() {
                 <TextInput
                     label="Senha"
                     mode="outlined"
-                    placeholder="******"
+                    placeholder="   ******"
                     secureTextEntry
                     outlineColor='#1F5A2E'
                     activeOutlineColor="#1F5A2E"
