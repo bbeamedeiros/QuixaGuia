@@ -36,6 +36,19 @@ export default function LoginPage() {
             </View> 
             {/*Botão de Login*/}
                 <Button 
+                    mode="contained"
+                    onPress={() => {}}
+                    buttonColor='#1F5A2E'
+                    style={styles.button}
+                > Entrar </Button>
+            {/*Esqueci minha senha*/}
+            <Button 
+                mode="text"
+                onPress={() => {}}
+                textColor='#0E3014'
+                style={styles.forgotPassword}
+            > Esqueceu a senha? </Button>
+
         </View>
     );
 }
@@ -49,63 +62,43 @@ const styles = StyleSheet.create({
         paddingHorizontal: 40,
         backgroundColor: '#F4FFE1',
     },
+    header: {
+        alignItems: 'center',
+        marginBottom: 20,
+    },
     logoRed: {
         fontSize: 50,
         fontWeight: 'bold',
         color: '#A32D2D', // Tom de vermelho
     },
     logoGreen: {
+        fontSize: 50,
+        fontWeight: 'bold',
         color: '#1F5A2E', // Tom de verde
     },
     subtitle: {
         fontSize: 16,
-        color: '#333',
+        color: '#0F100D',
         marginBottom: 50,
     },
     inputContainer: {
         width: '100%',
-        marginBottom: 20,
-    },
-    inputBox: {
-        width: '100%',
-        marginBottom: 25,
-    },
-    label: {
-        position: 'absolute',
-        top: -10,
-        left: 15,
-        backgroundColor: '#F4FFE1',
-        zIndex: 1,
-        paddingHorizontal: 5,
-        fontSize: 12,
-        color: '#1F5A2E',
-        fontWeight: 'bold',
+        gap: 24,
     },
     input: {
-        width: '100%',
-        height: 50,
-        borderWidth: 1.5,
-        borderColor: '#1F5A2E',
-        borderRadius: 10,
-        paddingHorizontal: 15,
-        fontSize: 16,
+        backgroundColor: '#F4FFE1',
     },
     button: {
         backgroundColor: '#1F5A2E',
-        width: '100%',
+        width: 205,
         height: 50,
         borderRadius: 25,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10,
-    },
-    buttonText: {
-        color: '#FFF',
-        fontSize: 18,
-        fontWeight: 'bold',
+        marginTop: 30,
     },
     forgotPassword: {
-        marginTop: 20,
+        marginTop: 4,
         color: '#1F5A2E',
         textDecorationLine: 'underline',
     },
