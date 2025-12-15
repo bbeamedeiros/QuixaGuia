@@ -41,12 +41,6 @@ export default function LoginPage({page}) {
             <TouchableOpacity>
                 <Text style={styles.forgotPassword}>Esqueci minha senha</Text>
             </TouchableOpacity>
-
-            {/* BOLINHAS DA TELA 2 - dots de interação*/}
-            <View style={styles.bolinhas}>
-                <View style={[styles.dot, page === 0 ? styles.activeDot : styles.inactiveDot]} />
-                <View style={[styles.dot, page === 1 ? styles.activeDot : styles.inactiveDot]} />
-            </View>
         </View>
     );
 }
@@ -119,23 +113,5 @@ const styles = StyleSheet.create({
         marginTop: 20,
         color: '#1F5A2E',
         textDecorationLine: 'underline',
-    },
-    bolinhas: {
-        flexDirection: 'row',
-        marginTop: 20,
-    },
-    dot: {
-        width: 12,
-        height: 12,
-        borderRadius: 6,
-        marginHorizontal: 8,
-    },
-    activeDot: {
-        backgroundColor: '#1F5A2E'
-    },
-    inactiveDot: {
-        borderWidth: 2,
-        borderColor: '#1F5A2E', // Apenas borda
-        backgroundColor: 'transparent',
     },
 });

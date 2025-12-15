@@ -46,21 +46,20 @@ export default function BemVindo() {
                             Encontre tudo o que você precisa{'\n'}
                             para se adaptar a Quixadá
                         </Text>
-
-                        {/* BOLINHAS DA TELA 1 - dots de interação*/}
-                        <View style={styles.bolinhas}>
-                            <View style={[styles.dot, page === 0 ? styles.activeDot : styles.inactiveDot]} />
-                            <View style={[styles.dot, page === 1 ? styles.activeDot : styles.inactiveDot]} />
-
-                        </View>
                     </View>
                 </View>
                 {/* TELA 2 (LOGIN) */}
                 <View style={[styles.page, { backgroundColor: '#F4FFE1' }]}>
-                    <LoginPage page={page}/>
+                    <LoginPage page={page} />
                 </View>
 
             </ScrollView >
+            {/* BOLINHAS DA TELA 1 - dots de interação*/}
+            <View style={styles.bolinhas}>
+                <View style={[styles.dot, page === 0 ? styles.activeDot : styles.inactiveDot]} />
+                <View style={[styles.dot, page === 1 ? styles.activeDot : styles.inactiveDot]} />
+
+            </View>
         </View >
 
     );
@@ -118,6 +117,9 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     bolinhas: {
+        position: 'absolute',
+        bottom: 50,
+        alignSelf: 'center',
         flexDirection: 'row',
         marginTop: 20,
     },
