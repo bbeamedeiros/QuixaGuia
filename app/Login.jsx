@@ -1,46 +1,41 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import { Text, TextInput, Button, useTheme } from 'react-native-paper';
 
 const { width } = Dimensions.get('window');
 
-export default function LoginPage({page}) {
+export default function LoginPage() {
     return (
         <View style={styles.container}>
-            {/* Título com cores diferentes */}
-            <Text style={styles.logoRed}>
-                Quixa<Text style={styles.logoGreen}>Guia</Text>
-            </Text>
-            <Text style={styles.subtitle}>Hospitalidade e Mobilidade Urbana</Text>
-
-            {/* Formulário */}
-            <View style={styles.inputContainer}>
-                <View style={styles.inputBox}>
-                    <Text style={styles.label}>Usuário</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="beatrizbemedeiros@gmail.com"
-                        placeholderTextColor="#999"
-                    />
-                </View>
-
-                <View style={styles.inputBox}>
-                    <Text style={styles.label}>Senha</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="******"
-                        secureTextEntry={true}
-                        placeholderTextColor="#999"
-                    />
-                </View>
+            {/*Título*/}
+            <View style={styles.header}>
+                <Text style={styles.logoRed}>Quixa<Text style={styles.logoGreen}>Guia</Text>
+                </Text>
+                <Text variant= "bodyMedium" style={styles.subtitle}>Hospitalidade e Mobilidade Urbana</Text>
             </View>
+            {/*Formulário de Login*/}
+            <View style={styles.inputContainer}>
+                <TextInput
+                    label="Usuário"
+                    mode="outlined"
+                    placeholder="Digite seu usuário"
+                    outlineColor='#1F5A2E'
+                    activeOutlineColor="#1F5A2E"
+                    style={styles.input}
+                />
 
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Entrar</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-                <Text style={styles.forgotPassword}>Esqueci minha senha</Text>
-            </TouchableOpacity>
+                <TextInput
+                    label="Senha"
+                    mode="outlined"
+                    placeholder="******"
+                    secureTextEntry
+                    outlineColor='#1F5A2E'
+                    activeOutlineColor="#1F5A2E"
+                    style={styles.input}
+                />
+            </View> 
+            {/*Botão de Login*/}
+                <Button 
         </View>
     );
 }
