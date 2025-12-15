@@ -11,7 +11,11 @@ export default function LoginPage() {
             <View style={styles.header}>
                 <Text style={styles.logoRed}>Quixa<Text style={styles.logoGreen}>Guia</Text>
                 </Text>
-                <Text variant= "bodyMedium" style={styles.subtitle}>Hospitalidade e Mobilidade Urbana</Text>
+                <Text 
+                variant= "bodyMedium"
+                fontSize={16} 
+                marginBottom={40}
+                >Hospitalidade e Mobilidade Urbana</Text>
             </View>
             {/*Formulário de Login*/}
             <View style={styles.inputContainer}>
@@ -39,16 +43,23 @@ export default function LoginPage() {
                     mode="contained"
                     onPress={() => {}}
                     buttonColor='#1F5A2E'
-                    style={styles.button}
                     contentStyle={{height: 50, width: 205}}
+                    justifyContent= 'center'
+                    style={{marginTop: 30, borderRadius: 25}}
                 > Entrar </Button>
             {/*Esqueci minha senha*/}
             <Button 
                 mode="text"
                 onPress={() => {}}
                 textColor='#0E3014'
-                style={styles.forgotPassword}
+                marginTop={4}
             > Esqueceu a senha? </Button>
+            {/* Criar Conta */}
+            <Button 
+                mode="text"
+                onPress={() => {}}
+                textColor='#9D1B1B'
+            > Criar Conta </Button>
 
         </View>
     );
@@ -77,30 +88,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#1F5A2E', // Tom de verde
     },
-    subtitle: {
-        fontSize: 16,
-        color: '#0F100D',
-        marginBottom: 50,
-    },
     inputContainer: {
         width: '100%',
         gap: 24,
     },
     input: {
         backgroundColor: '#F4FFE1',
-    },
-    button: {
-        backgroundColor: '#1F5A2E',
-        width: 205,
-        height: 50,
-        borderRadius: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 30,
-    },
-    forgotPassword: {
-        marginTop: 4,
-        color: '#1F5A2E',
-        textDecorationLine: 'underline',
     },
 });
