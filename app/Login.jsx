@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Text, TextInput, Button, useTheme } from 'react-native-paper';
@@ -57,7 +58,7 @@ export default function LoginPage() {
             {/* Criar Conta */}
             <Button 
                 mode="text"
-                onPress={() => {}}
+                onPress={() => router.push('/CriarConta')}
                 textColor='#9D1B1B'
             > Criar Conta </Button>
 
