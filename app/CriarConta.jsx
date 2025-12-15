@@ -6,16 +6,16 @@ import { router, useRouter } from 'expo-router';
 const { width } = Dimensions.get('window');
 //header personalizado - recebe tres props 
 const header = ({ router, onBack, title }) => (
-     <View style={styles.header}>
+    <View style={styles.header}>
         <IconButton
             icon="arrow-left"
             size={24}
             onPress={onBack ? onBack : () => router.back()}
         />
         <Text style={styles.headerTitle}>{title}</Text>
-     </View>
+    </View>
 );
-   
+
 
 export default function CriarConta() {
     const router = useRouter();
@@ -51,30 +51,56 @@ export default function CriarConta() {
     {/*1 - ESCOLHA O USUARIO */ }
 
     const renderStep1 = () => (
-        <View style={styles.EtapaContainer}>
+        <View style={styles.stepContainer}>
             {/*novo morador e proprietario*/}
-            <Button onPress={() => setStep(2)}>Novo Morador</Button> {/*mudar para a etapa 2*/}
-            <Button onPress={() => { }}>Proprietário</Button>
+            <Text style={styles.stepTitle}>Antes de iniciar o cadastro, qual dessas opções você se encaixa:</Text>
+            <Button
+                mode='contained'
+                onPress={() => setStep(2)}
+                buttonColor='#9D1B1B'
+                style={style.stepButton}
+                contentStyle={styles.stepButtonContent}
+            >
+                Novo Morador
+            </Button> {/*mudar para a etapa 2*/}
+            <Button
+                mode='contained'
+                onPress={() => setStep(2)}
+                buttonColor='#9D1B1B'
+                style={style.stepButton}
+                contentStyle={styles.stepButtonContent}
+                onPress={() => { }}
+            >
+                Proprietário
+            </Button>
         </View>
     );
+    
     {/*2 - DADOS PESSOAIS */ }
     const renderStep2 = () => (
         <KeyboardAvoidingView>
             <ScrollView>
-                <Button onPress= {() => setStep(3)}>Próximo</Button>
+                <Button onPress={() => setStep(3)}>Próximo</Button>
             </ScrollView>
         </KeyboardAvoidingView>
     );
     {/*3 - CADASTRO FINALIZADO */ }
     const renderStep3 = () => (
-       <KeyboardAvoidingView>
+        <KeyboardAvoidingView>
             <ScrollView>
-                <Button onPress= {() => {}}>Cadastrar</Button>
+                <Button onPress={() => { }}>Cadastrar</Button>
             </ScrollView>
-       </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
     );
 
     return (
         <View style={styles.container}>
-    )
-    
+            <Header router={router} onBack={voltarEtapa} title="Criar Conta" />
+
+            {step === 1 && renderStep1()}
+            {step === 2 && renderStep2()}
+            {step === 3 && renderStep3()}
+
+        </View>
+    );
+
