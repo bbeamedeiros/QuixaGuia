@@ -67,7 +67,7 @@ export default function CriarConta() {
                 mode='contained'
                 onPress={() => setStep(2)}
                 buttonColor='#9D1B1B'
-                style={style.stepButton}
+                style={styles.stepButton}
                 contentStyle={styles.stepButtonContent}
                 onPress={() => { }}
             >
