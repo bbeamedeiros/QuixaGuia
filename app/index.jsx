@@ -12,7 +12,7 @@ export default function Splash() {
         const timer = setTimeout(() => {
             //navega para a tela de bem-vindo
             router.replace ('/BemVindo');
-        }, 2000);  // 2000 equivale a 1,5 segundos
+        }, 1500);  // 2000 equivale a 1,5 segundos
         
         return () => clearTimeout(timer);
     }, []);
