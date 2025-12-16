@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "QuixaGuia",
-    "slug": "QuixaGuia",
+    "slug": "quixaguia-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -44,6 +44,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ee1d2c78-cb80-4c91-bc28-7bb98ef4cfa6"
+      }
+    },
+    "owner": "quixaguia"
   }
 }

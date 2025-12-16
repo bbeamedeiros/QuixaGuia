@@ -55,7 +55,7 @@ export default function LoginPage() {
             {/*Botão de Login*/}
             <Button
                 mode="contained"
-                onPress={() => { }}
+                onPress={() => router.push('/TelaInicial')}
                 buttonColor='#1F5A2E'
                 contentStyle={{ height: 50, width: 205 }}
                 style={{ marginTop: 30, borderRadius: 25 }}
