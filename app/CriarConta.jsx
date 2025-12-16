@@ -52,6 +52,10 @@ export default function CriarConta() {
 
     const renderStep1 = () => (
         <View style={styles.stepContainer}>
+            <View style={styles.logo}>
+                <Text style={styles.logoRed}>Quixa<Text style={styles.logoGreen}>Guia</Text></Text>
+            </View>
+
             {/*novo morador e proprietario*/}
             <Text style={styles.stepTitle}>Antes de iniciar o cadastro, qual dessas opções você se encaixa:</Text>
             <Button
@@ -91,7 +95,7 @@ export default function CriarConta() {
                     outlineColor='#1F5A2E'
                     activeOutlineColor="#1F5A2E"
                     style={styles.input}
-                    />
+                />
                 {/*sobrenome */}
                 <TextInput
                     label="Sobrenome*"
@@ -101,7 +105,7 @@ export default function CriarConta() {
                     outlineColor='#1F5A2E'
                     activeOutlineColor="#1F5A2E"
                     style={styles.input}
-                    />
+                />
                 <Button onPress={() => setStep(3)}>Próximo</Button>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -134,9 +138,7 @@ const styles = StyleSheet.create({
     },
     header: {
         position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
+        top: 40,
         height: 60,
         backgroundColor: '#F4FFE1',
         flexDirection: 'row',
@@ -153,10 +155,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    logo: {
+        marginBottom: 40,
+    },
+    logoRed: {
+        fontSize: 50,
+        fontWeight: 'bold',
+        color: '#A32D2D', // Tom de vermelho
+    },
+    logoGreen: {
+        fontWeight: 'bold',
+        color: '#1F5A2E', // Tom de verde
+    },
     stepTitle: {
         fontSize: 18,
         marginBottom: 20,
         textAlign: 'center',
+        color: '#0F100D',
     },
     stepButton: {
         width: '80%',
@@ -165,5 +180,5 @@ const styles = StyleSheet.create({
     },
     stepButtonContent: {
         height: 50,
-    },  
+    },
 });
