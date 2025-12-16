@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { Text, TextInput, Button, IconButton } from 'react-native-paper';
 import { useRouter } from 'expo-router';
+import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
+import { 
+  Urbanist_400Regular, 
+  Urbanist_500Medium, 
+  Urbanist_700Bold 
+} from '@expo-google-fonts/urbanist';
 
 const { width } = Dimensions.get('window');
 //header personalizado - recebe tres props 

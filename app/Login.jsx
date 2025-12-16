@@ -2,6 +2,12 @@ import { router } from 'expo-router';
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Text, TextInput, Button, useTheme } from 'react-native-paper';
+import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
+import { 
+  Urbanist_400Regular, 
+  Urbanist_500Medium, 
+  Urbanist_700Bold 
+} from '@expo-google-fonts/urbanist';
 
 const { width } = Dimensions.get('window');
 

@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import LoginPage from './Login';
+import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
+import { 
+  Urbanist_400Regular, 
+  Urbanist_500Medium, 
+  Urbanist_700Bold 
+} from '@expo-google-fonts/urbanist';
 //pega a largura da tela
 const { width } = Dimensions.get('window');
 
@@ -9,6 +15,13 @@ export default function BemVindo() {
     const router = useRouter();
     //estado que controla a paginação da primeira tela para a segunda
     const [page, setPage] = useState(0);
+
+    let [fontsLoaded] = useFonts({
+        TiltWarp_400Regular,
+        Urbanist_400Regular,
+        Urbanist_500Medium,
+        Urbanist_700Bold,
+    });
 
     //Função que vai identificar a página que o usuário está ao deslizar
     const handleScroll = (event) => {
@@ -80,15 +93,18 @@ const styles = StyleSheet.create({
         paddingTop: 130,
         paddingBottom: 100,
         alignItems: 'center',
+        
     },
     logo: {
+        fontFamily: 'TiltWarp_400Regular',
         fontSize: 60,
         color: '#F4FFE1',
     },
     subtitle: {
+        fontFamily: 'Urbanist_500Regular',
         fontSize: 20,
         color: '#F4FFE1',
-        marginTop: -5,
+        marginTop: -20,
     },
     card: {
         flex: 1,
@@ -105,14 +121,15 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     title: {
+        fontFamily: 'Urbanist_700Bold',
         fontSize: 25,
-        fontWeight: 'bold',
         marginTop: -9,
         marginBottom: 2,
         textAlign: 'center',
     },
     sub: {
-        fontSize: 14,
+        fontFamily: 'Urbanist_400Regular',
+        fontSize: 18,
         textAlign: 'center',
         marginBottom: 20
     },
