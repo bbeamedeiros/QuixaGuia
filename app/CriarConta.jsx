@@ -56,8 +56,10 @@ export default function CriarConta() {
                 <Text style={styles.logoRed}>Quixa<Text style={styles.logoGreen}>Guia</Text></Text>
             </View>
 
-            {/*novo morador e proprietario*/}
-            <Text style={styles.stepTitle}>Antes de iniciar o cadastro, qual dessas opções você se encaixa:</Text>
+            <Text style={styles.stepTitle}>
+                Antes de iniciar o cadastro, qual dessas opções você se encaixa:
+            </Text>
+
             <Button
                 mode='contained'
                 onPress={() => setStep(2)}
@@ -66,7 +68,9 @@ export default function CriarConta() {
                 contentStyle={styles.stepButtonContent}
             >
                 Novo Morador
-            </Button> {/*mudar para a etapa 2*/}
+            </Button>
+            
+            {/* Botão de proprietário */}
             <Button
                 mode='contained'
                 onPress={() => setStep(2)}
@@ -78,7 +82,6 @@ export default function CriarConta() {
             </Button>
         </View>
     );
-
     {/*2 - DADOS PESSOAIS */ }
     const renderStep2 = () => (
         <KeyboardAvoidingView>
@@ -144,7 +147,7 @@ export default function CriarConta() {
             </ScrollView>
         </KeyboardAvoidingView>
     );
-    {/*3 - CADASTRO FINALIZADO */ }
+    {/*3 - CADASTRO FINALIZADO */}
     const renderStep3 = () => (
         <KeyboardAvoidingView>
             <ScrollView contentContainerStyle={styles.stepContainer2}>
@@ -268,7 +271,6 @@ const styles = StyleSheet.create({
     },
     stepButton: {
         width: '70%',
-        alignSelf: 'center',
         alignSelf: 'center',
         borderRadius: 25,
     },
