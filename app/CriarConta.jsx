@@ -3,10 +3,10 @@ import { View, StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView, Platfor
 import { Text, TextInput, Button, IconButton } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
-import { 
-  Urbanist_400Regular, 
-  Urbanist_500Medium, 
-  Urbanist_700Bold 
+import {
+    Urbanist_400Regular,
+    Urbanist_500Medium,
+    Urbanist_700Bold
 } from '@expo-google-fonts/urbanist';
 
 const { width } = Dimensions.get('window');
@@ -25,7 +25,14 @@ const Header = ({ router, onBack, title }) => (
 
 export default function CriarConta() {
     const router = useRouter();
-    const [step, setStep] = useState(1); //vai começar na primeira etapa
+    const [step, setStep] = useState(1); //vai começar na primeira etapa}
+
+    let [fontsLoaded] = useFonts({
+        TiltWarp_400Regular,
+        Urbanist_400Regular,
+        Urbanist_500Medium,
+        Urbanist_700Bold,
+    });
 
     const [dados, setDados] = useState({
         nome: '',
@@ -69,13 +76,14 @@ export default function CriarConta() {
             <Button
                 mode='contained'
                 onPress={() => setStep(2)}
-                buttonColor='#9D1B1B'
+                buttonColor = '#9D1B1B'
                 style={styles.stepButtonInicial}
                 contentStyle={styles.stepButtonContent}
+                labelStyle={styles.buttonLabel}
             >
                 Novo Morador
             </Button>
-            
+
             {/* Botão de proprietário */}
             <Button
                 mode='contained'
@@ -83,6 +91,7 @@ export default function CriarConta() {
                 buttonColor='#9D1B1B'
                 style={styles.stepButton}
                 contentStyle={styles.stepButtonContent}
+                labelStyle={styles.buttonLabel}
             >
                 Proprietário
             </Button>
@@ -153,7 +162,7 @@ export default function CriarConta() {
             </ScrollView>
         </KeyboardAvoidingView>
     );
-    {/*3 - CADASTRO FINALIZADO */}
+    {/*3 - CADASTRO FINALIZADO */ }
     const renderStep3 = () => (
         <KeyboardAvoidingView>
             <ScrollView contentContainerStyle={styles.stepContainer2}>
@@ -223,6 +232,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F4FFE1',
         padding: 20,
+        justifyContent: 'center',
     },
     header: {
         position: 'absolute',
@@ -235,7 +245,7 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: 'Urbanist_700Bold',
         marginLeft: 10,
     },
     stepContainer: {
@@ -244,43 +254,53 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        marginBottom: 40,
+        paddingBottom: 50,
     },
-    logoRed: {
+    logoRed: { 
+        fontFamily: 'TiltWarp_400Regular',
         fontSize: 50,
-        fontWeight: 'bold',
         color: '#A32D2D', // Tom de vermelho
     },
     logoGreen: {
-        fontWeight: 'bold',
+        fontFamily: 'TiltWarp_400Regular',
         color: '#1F5A2E', // Tom de verde
     },
     stepTitle: {
         fontSize: 18,
+        fontFamily: 'Urbanist_500Medium',
         marginBottom: 20,
         textAlign: 'center',
         color: '#0F100D',
     },
     stepButtonInicial: {
+        fontFamily: 'Urbanist_700Bold',
         width: '70%',
         marginVertical: 10,
         borderRadius: 25,
     },
     stepContainer2: {
         paddingTop: 150,
-        padding: 20,
+        padding: 20, 
+        fontFamily: 'Urbanist_700Bold',
     },
+    
     input: {
+        fontFamily: 'Urbanist_400Regular',
         width: '100%',
         marginBottom: 15,
         backgroundColor: '#F4FFE1',
     },
     stepButton: {
+        fontFamily: 'Urbanist_700Bold',     
         width: '70%',
         alignSelf: 'center',
         borderRadius: 25,
     },
     stepButtonContent: {
         height: 50,
+    },
+    buttonLabel: {
+        fontFamily: 'Urbanist_700Bold',
+        fontSize: 16,
     },
 });

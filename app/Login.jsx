@@ -3,16 +3,23 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Text, TextInput, Button, useTheme } from 'react-native-paper';
 import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
-import { 
-  Urbanist_400Regular, 
-  Urbanist_500Medium, 
-  Urbanist_700Bold 
+import {
+    Urbanist_400Regular,
+    Urbanist_500Medium,
+    Urbanist_700Bold
 } from '@expo-google-fonts/urbanist';
 
 const { width } = Dimensions.get('window');
 
 export default function LoginPage() {
+    let [fontsLoaded] = useFonts({
+        TiltWarp_400Regular,
+        Urbanist_400Regular,
+        Urbanist_500Medium,
+        Urbanist_700Bold,
+    });
     return (
+
         <View style={styles.container}>
             {/*Título*/}
             <View style={styles.header}>
@@ -52,6 +59,7 @@ export default function LoginPage() {
                 buttonColor='#1F5A2E'
                 contentStyle={{ height: 50, width: 205 }}
                 style={{ marginTop: 30, borderRadius: 25 }}
+                labelStyle={{ fontFamily: 'Urbanist_700Bold' }}
             > Entrar </Button>
             {/*Esqueci minha senha*/}
             <Button
@@ -59,12 +67,14 @@ export default function LoginPage() {
                 onPress={() => { }}
                 textColor='#0E3014'
                 marginTop={4}
+                labelStyle={{ fontFamily: 'Urbanist_500Medium' }}
             > Esqueceu a senha? </Button>
             {/* Criar Conta */}
             <Button
                 mode="text"
                 onPress={() => router.push('/CriarConta')}
                 textColor='#9D1B1B'
+                labelStyle={{ fontFamily: 'Urbanist_500Medium' }}
             > Criar Conta </Button>
 
         </View>
@@ -76,27 +86,28 @@ const styles = StyleSheet.create({
         width: width, // Garante que ocupa a largura total da página no ScrollView
         flex: 1,
         alignItems: 'center',
-        paddingTop: 130, // Alinhado com o header do BemVindo
-        paddingHorizontal: 40,
+        justifyContent: 'center',
+        padding: 40,
         backgroundColor: '#F4FFE1',
     },
     header: {
         alignItems: 'center',
         marginBottom: 20,
     },
-    logoRed:{
+    logoRed: {
+        fontFamily: 'TiltWarp_400Regular',
         fontSize: 50,
-        fontWeight: 'bold',
         color: '#A32D2D', // Tom de vermelho
     },
     logoGreen: {
-        fontWeight: 'bold',
+        fontFamily: 'TiltWarp_400Regular',
         color: '#1F5A2E', // Tom de verde
     },
     subtitle: {
+        fontFamily: 'Urbanist_400Regular',
         fontSize: 16,
         color: '#0E3014',
-        marginTop: 4,
+        marginTop: -14,
     },
     inputContainer: {
         width: '100%',
