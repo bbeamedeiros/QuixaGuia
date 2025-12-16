@@ -179,8 +179,8 @@ export default function CriarConta() {
                 <TextInput
                     label="Confirmar Senha*"
                     mode="outlined"
-                    value={dados.ConfirmarSenha}
-                    onChangeText={(text) => atualizaCampo('ConfirmarSenha', text)}
+                    value={dados.confirmarSenha}
+                    onChangeText={(text) => atualizaCampo('confirmarSenha', text)}
                     outlineColor='#1F5A2E'
                     activeOutlineColor="#1F5A2E"
                     style={styles.input}
@@ -257,17 +257,9 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         borderRadius: 25,
     },
-    stepButtonContent: {
-        height: 50,
-    },
     stepContainer2: {
         paddingTop: 150,
         padding: 20,
-    },
-    stepTitle: {
-        fontSize: 18,
-        marginBottom: 20,
-        textAlign: 'center',
     },
     input: {
         width: '100%',
@@ -276,11 +268,11 @@ const styles = StyleSheet.create({
     },
     stepButton: {
         width: '70%',
-        marginTop: 10,
-        marginLeft: 90,
+        alignSelf: 'center',
+        alignSelf: 'center',
+        borderRadius: 25,
     },
     stepButtonContent: {
         height: 50,
     },
-
 });
