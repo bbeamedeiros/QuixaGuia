@@ -50,7 +50,7 @@ export default function CriarConta() {
 
     {/*1 - ESCOLHA O USUARIO */ }
 
-    const renderStep1 = () => (
+    const renderStep1 = () => {
         <View style={styles.stepContainer}>
             <View style={styles.logo}>
                 <Text style={styles.logoRed}>Quixa<Text style={styles.logoGreen}>Guia</Text></Text>
@@ -73,15 +73,14 @@ export default function CriarConta() {
                 buttonColor='#9D1B1B'
                 style={styles.stepButton}
                 contentStyle={styles.stepButtonContent}
-                onPress={() => { }}
             >
                 Proprietário
             </Button>
         </View>
-    );
+    };
 
     {/*2 - DADOS PESSOAIS */ }
-    const renderStep2 = () => (
+    const renderStep2 = () => {
         <KeyboardAvoidingView>
             <ScrollView contentContainerStyle={styles.stepContainer}>
                 <Text style={styles.stepTitle}>Por favor, preencha seus dados pessoais:</Text>
@@ -109,15 +108,15 @@ export default function CriarConta() {
                 <Button onPress={() => setStep(3)}>Próximo</Button>
             </ScrollView>
         </KeyboardAvoidingView>
-    );
+    }
     {/*3 - CADASTRO FINALIZADO */ }
-    const renderStep3 = () => (
+    const renderStep3 = () => {
         <KeyboardAvoidingView>
             <ScrollView>
                 <Button onPress={() => { }}>Cadastrar</Button>
             </ScrollView>
         </KeyboardAvoidingView>
-    );
+    };
 
     return (
         <View style={styles.container}>
@@ -181,4 +180,10 @@ const styles = StyleSheet.create({
     stepButtonContent: {
         height: 50,
     },
+    input: {
+        width: '100%',
+        marginBottom: 15,
+        backgroundColor: '#F4FFE1',
+    },
+
 });
