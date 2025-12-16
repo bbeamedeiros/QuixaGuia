@@ -5,7 +5,7 @@ import { router, useRouter } from 'expo-router';
 
 const { width } = Dimensions.get('window');
 //header personalizado - recebe tres props 
-const header = ({ router, onBack, title }) => (
+const Header = ({ router, onBack, title }) => (
     <View style={styles.header}>
         <IconButton
             icon="arrow-left"
@@ -58,7 +58,7 @@ export default function CriarConta() {
                 mode='contained'
                 onPress={() => setStep(2)}
                 buttonColor='#9D1B1B'
-                style={style.stepButton}
+                style={styles.stepButton}
                 contentStyle={styles.stepButtonContent}
             >
                 Novo Morador
@@ -75,11 +75,33 @@ export default function CriarConta() {
             </Button>
         </View>
     );
-    
+
     {/*2 - DADOS PESSOAIS */ }
     const renderStep2 = () => (
         <KeyboardAvoidingView>
-            <ScrollView>
+            <ScrollView contentContainerStyle={styles.stepContainer}>
+                <Text style={styles.stepTitle}>Por favor, preencha seus dados pessoais:</Text>
+
+                {/*nome */}
+                <TextInput
+                    label="Nome*"
+                    mode="outlined"
+                    value={dados.nome}
+                    onChangeText={(text) => atualizaCampo('nome', text)}
+                    outlineColor='#1F5A2E'
+                    activeOutlineColor="#1F5A2E"
+                    style={styles.input}
+                    />
+                {/*sobrenome */}
+                <TextInput
+                    label="Sobrenome*"
+                    mode="outlined"
+                    value={dados.sobrenome}
+                    onChangeText={(text) => atualizaCampo('sobrenome', text)}
+                    outlineColor='#1F5A2E'
+                    activeOutlineColor="#1F5A2E"
+                    style={styles.input}
+                    />
                 <Button onPress={() => setStep(3)}>Próximo</Button>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -103,4 +125,45 @@ export default function CriarConta() {
 
         </View>
     );
-
+}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#F4FFE1',
+        padding: 20,
+    },
+    header: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 60,
+        backgroundColor: '#F4FFE1',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 10,
+    },
+    headerTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginLeft: 10,
+    },
+    stepContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    stepTitle: {
+        fontSize: 18,
+        marginBottom: 20,
+        textAlign: 'center',
+    },
+    stepButton: {
+        width: '80%',
+        marginVertical: 10,
+        borderRadius: 25,
+    },
+    stepButtonContent: {
+        height: 50,
+    },  
+});
