@@ -148,6 +148,7 @@ export default function CriarConta() {
     const renderStep3 = () => (
         <KeyboardAvoidingView>
             <ScrollView contentContainerStyle={styles.stepContainer2}>
+                <Text style={styles.stepTitle}> Finalize o seu cadastro:</Text>
                 <TextInput
                     label="Email*"
                     mode="outlined"
@@ -179,10 +180,10 @@ export default function CriarConta() {
                     label="Confirmar Senha*"
                     mode="outlined"
                     value={dados.ConfirmarSenha}
-                onChangeText={(text) => atualizaCampo('ConfirmarSenha', text)}
-                outlineColor='#1F5A2E'
-                activeOutlineColor="#1F5A2E"
-                style={styles.input}
+                    onChangeText={(text) => atualizaCampo('ConfirmarSenha', text)}
+                    outlineColor='#1F5A2E'
+                    activeOutlineColor="#1F5A2E"
+                    style={styles.input}
                 />
                 <Button
                     onPress={() => { }}
