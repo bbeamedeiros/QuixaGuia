@@ -50,7 +50,7 @@ export default function CriarConta() {
 
     {/*1 - ESCOLHA O USUARIO */ }
 
-    const renderStep1 = () => {
+    const renderStep1 = () => (
         <View style={styles.stepContainer}>
             <View style={styles.logo}>
                 <Text style={styles.logoRed}>Quixa<Text style={styles.logoGreen}>Guia</Text></Text>
@@ -62,7 +62,7 @@ export default function CriarConta() {
                 mode='contained'
                 onPress={() => setStep(2)}
                 buttonColor='#9D1B1B'
-                style={styles.stepButton}
+                style={styles.stepButtonInicial}
                 contentStyle={styles.stepButtonContent}
             >
                 Novo Morador
@@ -77,12 +77,12 @@ export default function CriarConta() {
                 Proprietário
             </Button>
         </View>
-    };
+    );
 
     {/*2 - DADOS PESSOAIS */ }
-    const renderStep2 = () => {
+    const renderStep2 = () => (
         <KeyboardAvoidingView>
-            <ScrollView contentContainerStyle={styles.stepContainer}>
+            <ScrollView contentContainerStyle={styles.stepContainer2}>
                 <Text style={styles.stepTitle}>Por favor, preencha seus dados pessoais:</Text>
 
                 {/*nome */}
@@ -105,18 +105,97 @@ export default function CriarConta() {
                     activeOutlineColor="#1F5A2E"
                     style={styles.input}
                 />
-                <Button onPress={() => setStep(3)}>Próximo</Button>
+                <TextInput
+                    label="Endereço*"
+                    mode="outlined"
+                    value={dados.endereço}
+                    onChangeText={(text) => atualizaCampo('endereço', text)}
+                    outlineColor='#1F5A2E'
+                    activeOutlineColor="#1F5A2E"
+                    style={styles.input}
+                />
+                <TextInput
+                    label="Número*"
+                    mode="outlined"
+                    value={dados.número}
+                    onChangeText={(text) => atualizaCampo('número', text)}
+                    outlineColor='#1F5A2E'
+                    activeOutlineColor="#1F5A2E"
+                    style={styles.input}
+                />
+                <TextInput
+                    label="Bairro*"
+                    mode="outlined"
+                    value={dados.bairro}
+                    onChangeText={(text) => atualizaCampo('bairro', text)}
+                    outlineColor='#1F5A2E'
+                    activeOutlineColor="#1F5A2E"
+                    style={styles.input}
+                />
+                <Button
+                    onPress={() => setStep(3)}
+                    mode='contained'
+                    buttonColor='#9D1B1B'
+                    style={styles.stepButton}
+                    contentStyle={styles.stepButtonContent}
+                >
+                    Próximo
+                </Button>
             </ScrollView>
         </KeyboardAvoidingView>
-    }
+    );
     {/*3 - CADASTRO FINALIZADO */ }
-    const renderStep3 = () => {
+    const renderStep3 = () => (
         <KeyboardAvoidingView>
-            <ScrollView>
-                <Button onPress={() => { }}>Cadastrar</Button>
+            <ScrollView contentContainerStyle={styles.stepContainer2}>
+                <TextInput
+                    label="Email*"
+                    mode="outlined"
+                    value={dados.email}
+                    onChangeText={(text) => atualizaCampo('email', text)}
+                    outlineColor='#1F5A2E'
+                    activeOutlineColor="#1F5A2E"
+                    style={styles.input}
+                />
+                <TextInput
+                    label="Nome de Usuário*"
+                    mode="outlined"
+                    value={dados.username}
+                    onChangeText={(text) => atualizaCampo('username', text)}
+                    outlineColor='#1F5A2E'
+                    activeOutlineColor="#1F5A2E"
+                    style={styles.input}
+                />
+                <TextInput
+                    label="Senha*"
+                    mode="outlined"
+                    value={dados.senha}
+                    onChangeText={(text) => atualizaCampo('senha', text)}
+                    outlineColor='#1F5A2E'
+                    activeOutlineColor="#1F5A2E"
+                    style={styles.input}
+                />
+                <TextInput
+                    label="Confirmar Senha*"
+                    mode="outlined"
+                    value={dados.ConfirmarSenha}
+                onChangeText={(text) => atualizaCampo('ConfirmarSenha', text)}
+                outlineColor='#1F5A2E'
+                activeOutlineColor="#1F5A2E"
+                style={styles.input}
+                />
+                <Button
+                    onPress={() => { }}
+                    mode='contained'
+                    buttonColor='#9D1B1B'
+                    style={styles.stepButton}
+                    contentStyle={styles.stepButtonContent}
+                >
+                    Cadastrar
+                </Button>
             </ScrollView>
         </KeyboardAvoidingView>
-    };
+    );
 
     return (
         <View style={styles.container}>
@@ -172,18 +251,35 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#0F100D',
     },
-    stepButton: {
-        width: '80%',
+    stepButtonInicial: {
+        width: '70%',
         marginVertical: 10,
         borderRadius: 25,
     },
     stepButtonContent: {
         height: 50,
     },
+    stepContainer2: {
+        paddingTop: 150,
+        padding: 20,
+    },
+    stepTitle: {
+        fontSize: 18,
+        marginBottom: 20,
+        textAlign: 'center',
+    },
     input: {
         width: '100%',
         marginBottom: 15,
         backgroundColor: '#F4FFE1',
+    },
+    stepButton: {
+        width: '70%',
+        marginTop: 10,
+        marginLeft: 90,
+    },
+    stepButtonContent: {
+        height: 50,
     },
 
 });
