@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import LoginPage from './Login';
@@ -8,6 +8,7 @@ import {
   Urbanist_500Medium, 
   Urbanist_700Bold 
 } from '@expo-google-fonts/urbanist';
+
 //pega a largura da tela
 const { width } = Dimensions.get('window');
 

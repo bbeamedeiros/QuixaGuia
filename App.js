@@ -1,5 +1,5 @@
-import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { PaperProvider } from 'react-native-paper';
 
 /*import Page from '../screens/Page';*/
 import Splash from './app';
@@ -10,11 +10,14 @@ const Stack = createStackNavigator();
 
 export default function StackNavigator() {
   return (
-    <Navigator screenOptions={{ headerShown: false }}>
-   
-      <Screen name="Splash" component={Splash} />
-      <Screen name="Welcome" component={BemVindo} />
-      <Screen name="CriarConta" component={CriarConta} />
-    </Navigator>
+    <PaperProvider>
+      <Navigator screenOptions={{ headerShown: false }}>
+
+        <Screen name="Splash" component={Splash} />
+        <Screen name="BemVindo" component={BemVindo} />
+        <Screen name="CriarConta" component={CriarConta} />
+
+      </Navigator>
+    </PaperProvider>
   );
 }
