@@ -8,7 +8,7 @@ import {
     Urbanist_500Medium,
     Urbanist_700Bold
 } from '@expo-google-fonts/urbanist';
-
+import BusSchedule from './Transporte';
 const { width } = Dimensions.get('window');
 
 export default function Home() {
@@ -64,10 +64,7 @@ const ImoveisRoute = () => (
 
 const TransporteRoute = () => ( <View style={styles.container}>
          <AppBar/>
-        <View style={styles.infos}>
-            <Text style={styles.titulo}>Itinerário dos Ônibus UFC</Text>
-
-            </View>
+            <BusSchedule/>
      </View>
      )
 
