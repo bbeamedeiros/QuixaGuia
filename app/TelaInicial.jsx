@@ -62,17 +62,24 @@ const ImoveisRoute = () => (
      </View>
 )
 
-const TransporteRoute = () => <Text>Recents</Text>;
+const TransporteRoute = () => ( <View style={styles.container}>
+         <AppBar/>
+        <View style={styles.infos}>
+            <Text style={styles.titulo}>Itinerário dos Ônibus UFC</Text>
+
+            </View>
+     </View>
+     )
 
 const LugaresRoute = () => <Text>Notifications</Text>;
 
 const BottomNav= () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'home', title: 'Home', focusedIcon: 'heart', unfocusedIcon: 'heart-outline'},
-    { key: 'imoveis', title: 'Imóveis', focusedIcon: 'album' },
-    { key: 'transporte', title: 'Transporte', focusedIcon: 'history' },
-    { key: 'lugares', title: 'Lugares', focusedIcon: 'bell', unfocusedIcon: 'bell-outline' },
+    { key: 'home', title: 'Home', focusedIcon: 'home', unfocusedIcon: 'home-outline'},
+    { key: 'imoveis', title: 'Imóveis', focusedIcon: 'store-outline' },
+    { key: 'transporte', title: 'Transporte', focusedIcon: 'bus'},
+    { key: 'lugares', title: 'Lugares', focusedIcon: 'food', unfocusedIcon: 'food-outline' },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
