@@ -48,9 +48,15 @@ export default function CriarConta() {
         }
         setLoading(true); 
     }
-
+    //ele vai tentar executar as funções que estão dentro dele
     try {
-        
+    // vai enviar email e senha para o Firebase Auth
+    const userCredential = await createUserWithEmailAndPassword(auth, dados.email, dados.senha);
+    const user = userCredential.user;
+
+    //salva os dados do perfil no Firestore Database 
+    
+
     }
 
     const [dados, setDados] = useState({
