@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView, Alert } from 'react-native';
 import { Text, TextInput, Button, IconButton, Portal, Dialog } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
@@ -8,10 +8,9 @@ import {
     Urbanist_500Medium,
     Urbanist_700Bold
 } from '@expo-google-fonts/urbanist';
-import { auth, db } from '../firebaseConfig'; 
+import { auth, db } from '../firebaseConfig';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { Alert } from 'react-native'; 
 
 
 const { width } = Dimensions.get('window');
@@ -32,13 +31,27 @@ export default function CriarConta() {
     const router = useRouter();
     const [step, setStep] = useState(1); //vai começar na primeira etapa}
     const [loading, setLoading] = useState(false);
-    
+
     let [fontsLoaded] = useFonts({
         TiltWarp_400Regular,
         Urbanist_400Regular,
         Urbanist_500Medium,
         Urbanist_700Bold,
     });
+
+    // pega as informações e manda para o banco
+    const handleCadastro = async () => {
+        //verificar se as senhas colocadas são iguais
+        if (dados.senha !== dados.confirmarSenha) {
+            Alert.alert("Erro", "As senhas são coincidem!");
+            return;
+        }
+        setLoading(true); 
+    }
+
+    try {
+        
+    }
 
     const [dados, setDados] = useState({
         nome: '',
@@ -79,6 +92,7 @@ export default function CriarConta() {
                 Antes de iniciar o cadastro, qual dessas opções você se encaixa:
             </Text>
 
+             {/* Botão de novo morador*/}
             <Button
                 mode='contained'
                 onPress={() => setStep(2)}
