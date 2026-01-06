@@ -29,6 +29,7 @@ export default function BemVindo() {
         const offset = event.nativeEvent.contentOffset.x; //quantos pixels foram empurrados?
         const activePage = Math.round(offset / width);//divisão para descobrir o índice da página
         setPage(activePage); //resultado
+    
     };
     return (
         <View style={styles.container}>

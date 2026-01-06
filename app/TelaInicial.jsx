@@ -1,4 +1,4 @@
-import { router } from 'expo-router';
+
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Text, TextInput, Button, useTheme, Appbar, Searchbar, BottomNavigation, Drawer } from 'react-native-paper';

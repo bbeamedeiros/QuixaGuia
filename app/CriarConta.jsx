@@ -8,6 +8,11 @@ import {
     Urbanist_500Medium,
     Urbanist_700Bold
 } from '@expo-google-fonts/urbanist';
+import { auth, db } from '../firebaseConfig'; 
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { Alert } from 'react-native'; 
+
 
 const { width } = Dimensions.get('window');
 //header personalizado - recebe tres props 
@@ -26,7 +31,8 @@ const Header = ({ router, onBack, title }) => (
 export default function CriarConta() {
     const router = useRouter();
     const [step, setStep] = useState(1); //vai começar na primeira etapa}
-
+    const [loading, setLoading] = useState(false);
+    
     let [fontsLoaded] = useFonts({
         TiltWarp_400Regular,
         Urbanist_400Regular,
@@ -76,7 +82,7 @@ export default function CriarConta() {
             <Button
                 mode='contained'
                 onPress={() => setStep(2)}
-                buttonColor = '#9D1B1B'
+                buttonColor='#9D1B1B'
                 style={styles.stepButtonInicial}
                 contentStyle={styles.stepButtonContent}
                 labelStyle={styles.buttonLabel}
@@ -256,7 +262,7 @@ const styles = StyleSheet.create({
     logo: {
         paddingBottom: 50,
     },
-    logoRed: { 
+    logoRed: {
         fontFamily: 'TiltWarp_400Regular',
         fontSize: 50,
         color: '#A32D2D', // Tom de vermelho
@@ -280,10 +286,10 @@ const styles = StyleSheet.create({
     },
     stepContainer2: {
         paddingTop: 150,
-        padding: 20, 
+        padding: 20,
         fontFamily: 'Urbanist_700Bold',
     },
-    
+
     input: {
         fontFamily: 'Urbanist_400Regular',
         width: '100%',
@@ -291,7 +297,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F4FFE1',
     },
     stepButton: {
-        fontFamily: 'Urbanist_700Bold',     
+        fontFamily: 'Urbanist_700Bold',
         width: '70%',
         alignSelf: 'center',
         borderRadius: 25,
