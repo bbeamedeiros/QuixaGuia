@@ -46,30 +46,27 @@ export default function CriarConta() {
             Alert.alert("Erro", "As senhas são coincidem!");
             return;
         }
-        setLoading(true); 
+        setLoading(true);
     }
     //ele vai tentar executar as funções que estão dentro dele
     try {
-    // vai enviar email e senha para o Firebase Auth
-    const userCredential = await createUserWithEmailAndPassword(auth, dados.email, dados.senha);
-    const user = userCredential.user;
+        // vai enviar email e senha para o Firebase Auth
+        const userCredential = await createUserWithEmailAndPassword(auth, dados.email, dados.senha);
+        const user = userCredential.user;
 
-    //salva os dados do perfil no Firestore Database 
-    
-
+        //salva os dados do perfil no Firestore Database 
+        // user.uid = cada usuario tera um id unico 
+        await setDoc(doc(db, "usuarios", user.uid), {
+            nome: dados.nome,
+            sobrenome: dados.sobrenome,
+            bairro: dados.bairro,
+            endereco: dados.endereço,
+            email: dados.email,
+            criadoEm: new Date().toISOString()
+        });
+        
     }
 
-    const [dados, setDados] = useState({
-        nome: '',
-        sobrenome: '',
-        endereço: '',
-        número: '',
-        bairro: '',
-        email: '',
-        username: '',
-        senha: '',
-        confirmarSenha: ''
-    });
     {/*atualizar os dados do formulário */ }
     const atualizaCampo = (name, value) => {
         setDados({
@@ -98,7 +95,7 @@ export default function CriarConta() {
                 Antes de iniciar o cadastro, qual dessas opções você se encaixa:
             </Text>
 
-             {/* Botão de novo morador*/}
+            {/* Botão de novo morador*/}
             <Button
                 mode='contained'
                 onPress={() => setStep(2)}
