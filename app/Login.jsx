@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import React from 'react';
+import {useState} from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Text, TextInput, Button, useTheme } from 'react-native-paper';
 import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
@@ -8,16 +8,51 @@ import {
     Urbanist_500Medium,
     Urbanist_700Bold
 } from '@expo-google-fonts/urbanist';
+import { auth } from '../firebaseConfig';
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const { width } = Dimensions.get('window');
 
 export default function LoginPage() {
+
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [loading, setLoading] = useState(false);
+
     let [fontsLoaded] = useFonts({
         TiltWarp_400Regular,
         Urbanist_400Regular,
         Urbanist_500Medium,
         Urbanist_700Bold,
     });
+
+    const handleLogin = async () => {
+        if (!email || !senha) {
+            Alert.alert("Atenção", "Preencha e-mail e senha!");
+            return;
+        }
+
+        setLoading(true);
+        //ele vai tentar executar as funções que estão dentro dele
+        try {
+            await signInWithEmailAndPassword(auth, email, senha);
+            router.replace('/TelaInicial');
+            //captura o erro 
+        } catch (error) {
+            console.error(error);
+            let mensagem = "Não foi possível entrar.";
+
+            // erros comuns
+            if (error.code === 'auth/invalid-credential') mensagem = "E-mail ou senha incorretos.";
+            if (error.code === 'auth/user-not-found') mensagem = "Usuário não encontrado.";
+            if (error.code === 'auth/wrong-password') mensagem = "Senha incorreta.";
+
+            Alert.alert("Erro", mensagem);
+        } finally {
+            setLoading(false); // Desligamos o "carregando"
+        }
+    };
+
     return (
 
         <View style={styles.container}>
@@ -34,9 +69,13 @@ export default function LoginPage() {
             {/*Formulário de Login*/}
             <View style={styles.inputContainer}>
                 <TextInput
-                    label="Usuário"
+                    label="E-mail"
                     mode="outlined"
-                    placeholder="Digite seu usuário"
+                    placeholder="Digite seu e-mail"
+                    value={email} 
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    onChangeText={setEmail}
                     outlineColor='#1F5A2E'
                     activeOutlineColor="#1F5A2E"
                     style={styles.input}
@@ -45,8 +84,10 @@ export default function LoginPage() {
                 <TextInput
                     label="Senha"
                     mode="outlined"
-                    placeholder="   ******"
+                    placeholder=" ******"
                     secureTextEntry
+                    value={senha} 
+                    onChangeText={setSenha}
                     outlineColor='#1F5A2E'
                     activeOutlineColor="#1F5A2E"
                     style={styles.input}
@@ -55,12 +96,16 @@ export default function LoginPage() {
             {/*Botão de Login*/}
             <Button
                 mode="contained"
-                onPress={() => router.push('/TelaInicial')}
+                onPress={handleLogin}
+                loading={loading}
+                disabled={loading}
                 buttonColor='#1F5A2E'
                 contentStyle={{ height: 50, width: 205 }}
                 style={{ marginTop: 30, borderRadius: 25 }}
                 labelStyle={{ fontFamily: 'Urbanist_700Bold' }}
-            > Entrar </Button>
+            >
+                {loading ? "Entrando..." : "Entrar"}
+            </Button>
             {/*Esqueci minha senha*/}
             <Button
                 mode="text"

@@ -168,7 +168,7 @@ const renderStep2 = () => (
                 label="Endereço*"
                 mode="outlined"
                 value={dados.endereco}
-                onChangeText={(text) => atualizaCampo('endereço', text)}
+                onChangeText={(text) => atualizaCampo('endereco', text)}
                 outlineColor='#1F5A2E'
                 activeOutlineColor="#1F5A2E"
                 style={styles.input}
