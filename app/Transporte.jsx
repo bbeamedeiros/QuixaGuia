@@ -84,7 +84,6 @@ const Transporte = () => {
     );
   };
 
-
 //gerando as tabelas com as celulas de antes
 const TabelaBusUFC = () => {
     if (!ufcSchedules) return null;
@@ -176,7 +175,6 @@ const TabelaBusIFCE = () => {
   );
 };
 
-
   return (
     <ScrollView style={styles.infos}>
       <View style ={styles.blocoInfo}>
@@ -217,8 +215,6 @@ const CardParadas = () => {
   </View>
 );
 }
-
-
 
 const styles = StyleSheet.create({
     container: {

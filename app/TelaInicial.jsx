@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { Text, TextInput, Button, useTheme, Appbar, Searchbar, BottomNavigation, Drawer } from 'react-native-paper';
+import { Text, Appbar, Searchbar, BottomNavigation } from 'react-native-paper';
 import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
 import {
     Urbanist_400Regular,
@@ -9,6 +9,7 @@ import {
     Urbanist_700Bold
 } from '@expo-google-fonts/urbanist';
 import Transporte from './Transporte';
+
 const { width } = Dimensions.get('window');
 
 export default function Home() {
@@ -24,13 +25,11 @@ export default function Home() {
   <Appbar.Header style={styles.appbar}>
     <Appbar.Action icon="menu" color="#F4FFE1" onPress={() => {}} />
 <SearchBar/>
-
   </Appbar.Header>
 );
 
 const SearchBar= () => {
   const [searchQuery, setSearchQuery] = React.useState('');
-
   return (
     <Searchbar
       style={styles.barraPesquisa}
@@ -41,8 +40,7 @@ const SearchBar= () => {
   );
 };
 
-
-//aqui já começa a navbar
+//aqui já são as telas, que estao atreladas à navbar
 const TelaInicial = () => (
     <View style={styles.container}>
          <AppBar/>
@@ -53,6 +51,7 @@ const TelaInicial = () => (
             </View>
      </View>
 )
+
 const ImoveisRoute = () => (
     <View style={styles.container}>
          <AppBar/>
@@ -69,7 +68,7 @@ const TransporteRoute = () => (
   </View>
      )
 
-const LugaresRoute = () => <Text>Notifications</Text>;
+const LugaresRoute = () => <Text>Nada</Text>;
 
 const BottomNav= () => {
   const [index, setIndex] = React.useState(0);
@@ -101,17 +100,11 @@ const BottomNav= () => {
 
 //aqui vem a renderização na tela
  return (
-    
     <View style={styles.container}>
-       
-            <BottomNav/>
+      <BottomNav/>
      </View>
-
-
  )
- 
 }
-
 
 //styles
 const styles = StyleSheet.create({
@@ -133,13 +126,11 @@ const styles = StyleSheet.create({
     textoPequeno: {
         fontFamily: 'Urbanist_400Regular',
         fontSize: 16,
-
     },
     titulo: {
         fontFamily: 'TiltWarp_400Regular',
         color: '#9D1B1B',
         fontSize: 36,
-  
     },
     infos: {
         paddingLeft: 14,
