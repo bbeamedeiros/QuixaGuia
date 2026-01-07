@@ -1,9 +1,72 @@
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Dimensions, Linking, TouchableOpacity } from 'react-native';
 import { DataTable } from 'react-native-paper';
 import React from 'react';
-import { useIsFocused } from '@react-navigation/native';
-import { useFocusEffect } from 'expo-router';
 const { width } = Dimensions.get('window');
+
+const paradas = [
+  {
+    key: 1,
+    numero: '1',
+    nome: 'Rodoviária de Quixadá',
+    endereco: '2406, Av. Presidente Vargas, 2320 - Centro',
+    quixada: 'Quixadá - CE, 63900-000',
+    url: 'https://maps.google.com/?q=Rodoviária+de+Quixadá,+Av.+Presidente+Vargas,+2320,+Quixadá,+CE'
+  },
+  {
+    key: 2,
+    numero: '2',
+    nome: 'Anexo',
+    endereco: 'R. Basílio Pinto, 420 - Centro',
+    quixada: 'Quixadá - CE, 63900-000',
+    url: 'https://maps.google.com/?q=R.+Basílio+Pinto,+420,+Quixadá,+CE'
+  },
+  {
+    key: 3,
+    numero: '3',
+    nome: 'Construtec',
+    endereco: 'R. Basílio Emiliano Pinto, 958 - Planalto Universitário.',
+    quixada: 'Quixadá - CE, 63902-106',
+    url: 'https://maps.google.com/?q=R.+Basílio+Emiliano+Pinto,+958,+Quixadá,+CE'
+  },
+  {
+    key: 4,
+    numero: '4',
+    nome: 'Rustik',
+    endereco: 'R. Basílio Emiliano Pinto, 1255 - Combate',
+    quixada: 'Quixadá - CE, 63900-145',
+    url: 'https://maps.google.com/?q=R.+Basílio+Emiliano+Pinto,+1255,+Quixadá,+CE'
+  },
+  {
+    key: 5,
+    numero: '5',
+    nome: 'Loteamento',
+    endereco: 'R. José Freitas Queiroz, 2127',
+    quixada: 'Quixadá - CE, 63900-000',
+    url: 'https://maps.google.com/?q=R.+José+Freitas+Queiroz,+2127,+Quixadá,+CE'
+  }
+]
+
+const CardParadas = () => {
+ const abrirMaps = (url) => {
+    Linking.openURL(url).catch(err => console.error('Erro ao abrir o mapa:', err));
+  };
+return(
+  <View>
+    {paradas.map((parada) => (
+       <TouchableOpacity 
+          key={parada.key} 
+          style={styles.cardParada}
+          onPress={() => abrirMaps(parada.url)}
+          activeOpacity={0.7}
+        >
+        <Text style={styles.paradaNumero}>{parada.numero}. {parada.nome}</Text>
+        <Text style={styles.paradaEndereco}>{parada.endereco}</Text>
+        <Text style={styles.paradaQuixada}>{parada.quixada}</Text>
+      </TouchableOpacity>
+    ))}
+  </View>
+);
+}
 
 const ufc = [
   {
@@ -91,6 +154,7 @@ const CelulaOnibus = ({nome, horario}) => (
     <Text style={styles.cellHorario}>{horario}</Text>
   </View>
 )
+
 const TabelaBusUFC = () => {
   const maxLinhas = Math.max(
     ufc[0].rodoviaria.length,
@@ -180,13 +244,17 @@ const TabelaBusIFCE = () => {
 const Transporte = () => {
   return (
     <ScrollView style={styles.infos}>
-      <View style ={styles.containerTablelas}>
+      <View style ={styles.blocoInfo}>
     <Text style={styles.titulo}>Itinerário dos ônibus - UFC</Text>
     <TabelaBusUFC/>
     </View>
-    <View style ={styles.containerTablelas}>
+    <View style ={styles.blocoInfo}>
     <Text style={styles.titulo}>Itinerário dos ônibus - IFCE</Text>
     <TabelaBusIFCE/>
+    </View>
+    <View style ={styles.blocoInfo}>
+    <Text style={styles.titulo}>Paradas</Text>
+    <CardParadas/>
     </View>
     </ScrollView>
   )
@@ -200,7 +268,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F4FFE1',
         padding: 28,
     },
-    containerTablelas: {
+    blocoInfo: {
       paddingBottom: 28
     },
     textoPequeno: {
@@ -225,9 +293,29 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#000'
     },
+    cardParada: {
+      marginBottom: 20,
+    },
+    paradaNumero: {
+      fontFamily: 'Urbanist_700Bold',
+      fontSize: 18,
+      color: '#9D1B1B',
+      marginBottom: 4,
+    },
+    paradaEndereco: {
+      fontFamily: 'Urbanist_400Regular',
+      fontSize: 16,
+      color: '#000',
+      marginBottom: 2,
+    },
+    paradaQuixada: {
+      fontFamily: 'Urbanist_400Regular',
+      fontSize: 14,
+      color: '#666',
+    },
      cellContent: {
         flexDirection: 'column',
-        alignItems: 'center',
+        alignItems: 'left',
         justifyContent: 'center',
         padding: 8
     },
