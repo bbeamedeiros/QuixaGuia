@@ -57,13 +57,41 @@ const ufc = [
 }
 ]
 
+const ifce = [
+  {
+   key: 2,
+   rodoviaria: [
+       { nome: 'Ônibus A', horario: '07h20' },
+      { nome: 'Ônibus B', horario: '07h21' },
+      { nome: 'Ônibus A', horario: '09h10' },
+      { nome: 'Ônibus B', horario: '13h15' },
+      { nome: 'Ônibus A', horario: '13h30' },
+      { nome: 'Ônibus B', horario: '15h10' },
+      { nome: 'Ônibus A', horario: '18h10' },
+      { nome: 'Ônibus B', horario: '18h35' },
+      { nome: 'Ônibus A', horario: '20h15' },
+  ],
+   campus: [
+   { nome: 'Ônibus A', horario: '09h40' },
+      { nome: 'Ônibus B', horario: '11h30' },
+      { nome: 'Ônibus A', horario: '11h50' },
+      { nome: 'Ônibus B', horario: '12h' },
+      { nome: 'Ônibus A', horario: '15h40' },
+      { nome: 'Ônibus B', horario: '17h30' },
+      { nome: 'Ônibus A', horario: '17h50' },
+      { nome: 'Ônibus B', horario: '18h' },
+      { nome: 'Ônibus A', horario: '21h45' },
+  ]
+}
+]
+
 const CelulaOnibus = ({nome, horario}) => (
   <View style={styles.cellContent}>
     <Text style={styles.cellNome}>{nome}</Text>
     <Text style={styles.cellHorario}>{horario}</Text>
   </View>
 )
-const TabelaBus = () => {
+const TabelaBusUFC = () => {
   const maxLinhas = Math.max(
     ufc[0].rodoviaria.length,
     ufc[0].campus.length
@@ -106,11 +134,60 @@ const TabelaBus = () => {
   );
 };
 
+const TabelaBusIFCE = () => {
+  const maxLinhas = Math.max(
+    ifce[0].rodoviaria.length,
+    ifce[0].campus.length
+  )
+
+   return (
+    <DataTable>
+      <DataTable.Header>
+        <DataTable.Title style={styles.header}>
+          <Text style ={styles.textoMedio}>Saída da Rodoviária</Text>
+          </DataTable.Title>
+        <DataTable.Title style={styles.header}>
+          <Text style ={styles.textoMedio}>Saída do Campus</Text>
+          </DataTable.Title>
+      </DataTable.Header>
+
+      {/* Cria uma linha para cada índice */}
+      {Array.from({ length: maxLinhas }).map((_, index) => (
+        <DataTable.Row key={index}>
+          <DataTable.Cell>
+            {ifce[0].rodoviaria[index] && (
+              <CelulaOnibus 
+                nome={ifce[0].rodoviaria[index].nome}
+                horario={ifce[0].rodoviaria[index].horario}
+              />
+            )}
+          </DataTable.Cell>
+          
+          <DataTable.Cell>
+            {ifce[0].campus[index] && (
+              <CelulaOnibus 
+                nome={ifce[0].campus[index].nome}
+                horario={ifce[0].campus[index].horario}
+              />
+            )}
+          </DataTable.Cell>
+        </DataTable.Row>
+      ))}
+    </DataTable>
+  );
+};
+
 const Transporte = () => {
   return (
     <ScrollView style={styles.infos}>
-      <Text style={styles.titulo}>Itinerário dos ônibus - UFC</Text>
-    <TabelaBus/>
+      <View style ={styles.containerTablelas}>
+    <Text style={styles.titulo}>Itinerário dos ônibus - UFC</Text>
+    <TabelaBusUFC/>
+    </View>
+    <View style ={styles.containerTablelas}>
+    <Text style={styles.titulo}>Itinerário dos ônibus - IFCE</Text>
+    <TabelaBusIFCE/>
+    </View>
     </ScrollView>
   )
 }
@@ -123,6 +200,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#F4FFE1',
         padding: 28,
     },
+    containerTablelas: {
+      paddingBottom: 28
+    },
     textoPequeno: {
         fontFamily: 'Urbanist_400Regular',
         fontSize: 16,
@@ -134,7 +214,7 @@ const styles = StyleSheet.create({
         fontSize: 36,
     },
     infos: {
-        padding: 14
+        padding: 14,
     },
     header: {
       backgroundColor: '#D4EFB1',
