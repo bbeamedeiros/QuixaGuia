@@ -3,6 +3,8 @@ import { DataTable } from 'react-native-paper';
 import React from 'react';
 const { width } = Dimensions.get('window');
 
+
+//aq são as paradas (vai pro firebase)
 const paradas = [
   {
     key: 1,
@@ -46,11 +48,12 @@ const paradas = [
   }
 ]
 
+//aqui ele vai gerar um card pra cada parada que tiver na const anterior
 const CardParadas = () => {
  const abrirMaps = (url) => {
     Linking.openURL(url).catch(err => console.error('Erro ao abrir o mapa:', err));
   };
-return(
+  return(
   <View>
     {paradas.map((parada) => (
        <TouchableOpacity 
@@ -68,6 +71,7 @@ return(
 );
 }
 
+//issaq vai pro firebase pq sao os horarios do onibus
 const ufc = [
   {
    key: 1,
@@ -95,7 +99,7 @@ const ufc = [
       { nome: 'Ônibus A', horario: '18h45' },
   ],
    campus: [
-   { nome: 'Ônibus A', horario: '07h25' },
+      { nome: 'Ônibus A', horario: '07h25' },
       { nome: 'Ônibus A', horario: '07h30' },
       { nome: 'Ônibus A', horario: '09h20' },
       { nome: 'Ônibus B', horario: '11h10' },
@@ -120,6 +124,7 @@ const ufc = [
 }
 ]
 
+//issaq tbm
 const ifce = [
   {
    key: 2,
@@ -148,6 +153,7 @@ const ifce = [
 }
 ]
 
+//dizendo como q cada célula vai ser
 const CelulaOnibus = ({nome, horario}) => (
   <View style={styles.cellContent}>
     <Text style={styles.cellNome}>{nome}</Text>
@@ -155,6 +161,7 @@ const CelulaOnibus = ({nome, horario}) => (
   </View>
 )
 
+//gerando as tabelas com as celulas de antes
 const TabelaBusUFC = () => {
   const maxLinhas = Math.max(
     ufc[0].rodoviaria.length,
@@ -172,7 +179,7 @@ const TabelaBusUFC = () => {
           </DataTable.Title>
       </DataTable.Header>
 
-      {/* Cria uma linha para cada índice */}
+      {/* aqui ele vai gerar uma linha da tabela pra cada coiso q tiver lá no firebase */}
       {Array.from({ length: maxLinhas }).map((_, index) => (
         <DataTable.Row key={index}>
           <DataTable.Cell>
@@ -215,7 +222,7 @@ const TabelaBusIFCE = () => {
           </DataTable.Title>
       </DataTable.Header>
 
-      {/* Cria uma linha para cada índice */}
+      {/*aqui ele vai gerar uma linha da tabela pra cada coiso q tiver lá no firebase */}
       {Array.from({ length: maxLinhas }).map((_, index) => (
         <DataTable.Row key={index}>
           <DataTable.Cell>
@@ -241,6 +248,7 @@ const TabelaBusIFCE = () => {
   );
 };
 
+//renderizando td
 const Transporte = () => {
   return (
     <ScrollView style={styles.infos}>
