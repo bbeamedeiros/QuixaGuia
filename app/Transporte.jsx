@@ -1,117 +1,167 @@
+import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { DataTable } from 'react-native-paper';
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import { useFocusEffect } from 'expo-router';
+const { width } = Dimensions.get('window');
 
-const BusSchedule = () => {
-  const schedules = [
-    { departureRodovia: { bus: 'A', time: '07h10' }, departureCampus: { bus: 'B', time: '13h05' } },
-    { departureRodovia: { bus: 'B', time: '07h15' }, departureCampus: { bus: 'A', time: '13h30' } },
-    { departureRodovia: { bus: 'A', time: '07h40' }, departureCampus: { bus: 'B', time: '16h00' } },
-    { departureRodovia: { bus: 'B', time: '07h45' }, departureCampus: { bus: 'A', time: '16h00' } },
-    { departureRodovia: { bus: 'A', time: '09h35' }, departureCampus: { bus: 'B', time: '17h35' } },
-    { departureRodovia: { bus: 'B', time: '11h25' }, departureCampus: { bus: 'A', time: '17h45' } },
-    { departureRodovia: { bus: 'A', time: '11h45' }, departureCampus: { bus: 'B', time: '18h05' } },
-    { departureRodovia: { bus: 'B', time: '12h05' }, departureCampus: { bus: 'A', time: '18h15' } },
-    { departureRodovia: { bus: 'A', time: '12h15' }, departureCampus: { bus: 'B', time: '18h35' } },
-  ];
+const ufc = [
+  {
+   key: 1,
+   rodoviaria: [
+      { nome: 'Ônibus A', horario: '07h10' },
+      { nome: 'Ônibus B', horario: '07h15' },
+      { nome: 'Ônibus A', horario: '07h40' },
+      { nome: 'Ônibus B', horario: '07h45' },
+      { nome: 'Ônibus A', horario: '09h35' },
+      { nome: 'Ônibus B', horario: '11h25' },
+      { nome: 'Ônibus A', horario: '11h45' },
+      { nome: 'Ônibus B', horario: '12h05' },
+      { nome: 'Ônibus A', horario: '12h15' },
+      { nome: 'Ônibus B', horario: '12h35' },
+      { nome: 'Ônibus A', horario: '12h50' },
+      { nome: 'Ônibus B', horario: '13h05' },
+      { nome: 'Ônibus A', horario: '13h30' },
+      { nome: 'Ônibus B', horario: '15h30' },
+      { nome: 'Ônibus A', horario: '16h00' },
+      { nome: 'Ônibus B', horario: '17h35' },
+      { nome: 'Ônibus A', horario: '17h45' },
+      { nome: 'Ônibus B', horario: '18h05' },
+      { nome: 'Ônibus A', horario: '18h15' },
+      { nome: 'Ônibus B', horario: '18h35' },
+      { nome: 'Ônibus A', horario: '18h45' },
+  ],
+   campus: [
+   { nome: 'Ônibus A', horario: '07h25' },
+      { nome: 'Ônibus A', horario: '07h30' },
+      { nome: 'Ônibus A', horario: '09h20' },
+      { nome: 'Ônibus B', horario: '11h10' },
+      { nome: 'Ônibus A', horario: '11h20' },
+      { nome: 'Ônibus B', horario: '11h40' },
+      { nome: 'Ônibus A', horario: '12h00' },
+      { nome: 'Ônibus B', horario: '12h20' },
+      { nome: 'Ônibus A', horario: '12h30' },
+      { nome: 'Ônibus B', horario: '12h50' },
+      { nome: 'Ônibus A', horario: '13h15' },
+      { nome: 'Ônibus B', horario: '15h15' },
+      { nome: 'Ônibus A', horario: '15h45' },
+      { nome: 'Ônibus B', horario: '17h20' },
+      { nome: 'Ônibus A', horario: '17h30' },
+      { nome: 'Ônibus B', horario: '17h50' },
+      { nome: 'Ônibus A', horario: '18h00' },
+      { nome: 'Ônibus B', horario: '18h20' },
+      { nome: 'Ônibus A', horario: '18h30' },
+      { nome: 'Ônibus B', horario: '22h10' },
+      { nome: 'Ônibus A', horario: 'GARAGEM' },
+  ]
+}
+]
 
-  return (
-    <ScrollView style={styles.container}>
+const CelulaOnibus = ({nome, horario}) => (
+  <View style={styles.cellContent}>
+    <Text style={styles.cellNome}>{nome}</Text>
+    <Text style={styles.cellHorario}>{horario}</Text>
+  </View>
+)
+const TabelaBus = () => {
+  const maxLinhas = Math.max(
+    ufc[0].rodoviaria.length,
+    ufc[0].campus.length
+  )
 
-      <View style={styles.header}>
-        <Text style={styles.title}>Itinerário dos Ônibus UFC</Text>
-      </View>
-            
+   return (
+    <DataTable>
+      <DataTable.Header>
+        <DataTable.Title style={styles.header}>
+          <Text style ={styles.textoMedio}>Saída da Rodoviária</Text>
+          </DataTable.Title>
+        <DataTable.Title style={styles.header}>
+          <Text style ={styles.textoMedio}>Saída do Campus</Text>
+          </DataTable.Title>
+      </DataTable.Header>
 
-      <View style={styles.tableHeader}>
-        <View style={styles.headerColumn}>
-          <Text style={styles.headerText}>Saída da Rodoviária</Text>
-        </View>
-        <View style={styles.headerColumn}>
-          <Text style={styles.headerText}>Saída do campus</Text>
-        </View>
-      </View>
-
-      {schedules.map((schedule, index) => (
-        <View key={index} style={styles.row}>
-          <View style={styles.column}>
-            <Text style={styles.busLabel}>Ônibus {schedule.departureRodovia.bus}</Text>
-            <Text style={styles.timeText}>{schedule.departureRodovia.time}</Text>
-          </View>
-          <View style={styles.column}>
-            <Text style={styles.busLabel}>Ônibus {schedule.departureCampus.bus}</Text>
-            <Text style={styles.timeText}>{schedule.departureCampus.time}</Text>
-          </View>
-        </View>
+      {/* Cria uma linha para cada índice */}
+      {Array.from({ length: maxLinhas }).map((_, index) => (
+        <DataTable.Row key={index}>
+          <DataTable.Cell>
+            {ufc[0].rodoviaria[index] && (
+              <CelulaOnibus 
+                nome={ufc[0].rodoviaria[index].nome}
+                horario={ufc[0].rodoviaria[index].horario}
+              />
+            )}
+          </DataTable.Cell>
+          
+          <DataTable.Cell>
+            {ufc[0].campus[index] && (
+              <CelulaOnibus 
+                nome={ufc[0].campus[index].nome}
+                horario={ufc[0].campus[index].horario}
+              />
+            )}
+          </DataTable.Cell>
+        </DataTable.Row>
       ))}
-    </ScrollView>
+    </DataTable>
   );
 };
 
+const Transporte = () => {
+  return (
+    <ScrollView style={styles.infos}>
+      <Text style={styles.titulo}>Itinerário dos ônibus - UFC</Text>
+    <TabelaBus/>
+    </ScrollView>
+  )
+}
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F4FFE1',
-    padding: 28
-  },
-  header: {
-    backgroundColor: '#F4FFE1',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 5,
-  },
-  subtitle: {
-    fontSize: 20,
-    color: '#fff',
-  },
-  tableHeader: {
-    flexDirection: 'row',
-    backgroundColor: '#8ddf91ff',
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-  },
-  headerColumn: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  headerText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000000ff',
-  },
-  row: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e4babaff',
-    backgroundColor: '#F4FFE1',
-    paddingLeft: 14
-  },
-  column: {
-    flex: 1,
-    paddingVertical: 14,
-    alignItems: 'Left',
-  },
-  busLabel: {
-    fontSize: 14,
-    color: '#000000ff',
-    marginBottom: 5,
-  },
-  timeText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#000000ff',
-  },
-  title: {
-    fontFamily: 'TiltWarp_400Regular',
-    color: '#9D1B1B',
-    fontSize: 36,
-    backgroundColor: '#F4FFE1' 
-  
+    container: {
+        width: width, // Garante que ocupa a largura total da página no ScrollView
+        flex: 1,
+        alignItems: 'left',
+        backgroundColor: '#F4FFE1',
+        padding: 28,
     },
+    textoPequeno: {
+        fontFamily: 'Urbanist_400Regular',
+        fontSize: 16,
 
-});
+    },
+    titulo: {
+        fontFamily: 'TiltWarp_400Regular',
+        color: '#9D1B1B',
+        fontSize: 36,
+    },
+    infos: {
+        padding: 14
+    },
+    header: {
+      backgroundColor: '#D4EFB1',
+      justifyContent: 'center',
+    },
+    textoMedio: {
+      fontFamily: 'Urbanist_700Bold',
+      fontSize: 16,
+      color: '#000'
+    },
+     cellContent: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 8
+    },
+    cellNome: {
+        fontFamily: 'Urbanist_500Medium',
+        fontSize: 14,
+        color: '#21582B',
+        marginBottom: 4,
+    },
+    cellHorario: {
+        fontFamily: 'Urbanist_700Bold',
+        fontSize: 16,
+        color: '#000',
+    }
+})
 
-export default BusSchedule;
+export default Transporte;

@@ -8,7 +8,7 @@ import {
     Urbanist_500Medium,
     Urbanist_700Bold
 } from '@expo-google-fonts/urbanist';
-import BusSchedule from './Transporte';
+import Transporte from './Transporte';
 const { width } = Dimensions.get('window');
 
 export default function Home() {
@@ -62,10 +62,11 @@ const ImoveisRoute = () => (
      </View>
 )
 
-const TransporteRoute = () => ( <View style={styles.container}>
-         <AppBar/>
-            <BusSchedule/>
-     </View>
+const TransporteRoute = () => ( 
+  <View style={styles.container}>
+        <AppBar/>
+        <Transporte/>
+  </View>
      )
 
 const LugaresRoute = () => <Text>Notifications</Text>;
@@ -141,8 +142,8 @@ const styles = StyleSheet.create({
   
     },
     infos: {
-        paddingLeft: 28,
-        paddingTop: 28
+        paddingLeft: 14,
+        paddingTop: 14
     },
     navBar: {
          backgroundColor: '#21582B',
