@@ -1,52 +1,199 @@
-import { View, Text, StyleSheet, ScrollView, Dimensions, Linking, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Dimensions, Linking, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { DataTable } from 'react-native-paper';
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { db } from '../firebaseConfig'; // Ajuste o caminho se necessário
+import { doc, getDoc } from 'firebase/firestore';
+
 const { width } = Dimensions.get('window');
 
+//dizendo como q cada célula vai ser
+const CelulaOnibus = ({nome, horario}) => (
+  <View style={styles.cellContent}>
+    <Text style={styles.cellNome}>{nome}</Text>
+    <Text style={styles.cellHorario}>{horario}</Text>
+  </View>
+)
 
-//aq são as paradas (vai pro firebase)
-const paradas = [
-  {
-    key: 1,
-    numero: '1',
-    nome: 'Rodoviária de Quixadá',
-    endereco: '2406, Av. Presidente Vargas, 2320 - Centro',
-    quixada: 'Quixadá - CE, 63900-000',
-    url: 'https://maps.google.com/?q=Rodoviária+de+Quixadá,+Av.+Presidente+Vargas,+2320,+Quixadá,+CE'
-  },
-  {
-    key: 2,
-    numero: '2',
-    nome: 'Anexo',
-    endereco: 'R. Basílio Pinto, 420 - Centro',
-    quixada: 'Quixadá - CE, 63900-000',
-    url: 'https://maps.google.com/?q=R.+Basílio+Pinto,+420,+Quixadá,+CE'
-  },
-  {
-    key: 3,
-    numero: '3',
-    nome: 'Construtec',
-    endereco: 'R. Basílio Emiliano Pinto, 958 - Planalto Universitário.',
-    quixada: 'Quixadá - CE, 63902-106',
-    url: 'https://maps.google.com/?q=R.+Basílio+Emiliano+Pinto,+958,+Quixadá,+CE'
-  },
-  {
-    key: 4,
-    numero: '4',
-    nome: 'Rustik',
-    endereco: 'R. Basílio Emiliano Pinto, 1255 - Combate',
-    quixada: 'Quixadá - CE, 63900-145',
-    url: 'https://maps.google.com/?q=R.+Basílio+Emiliano+Pinto,+1255,+Quixadá,+CE'
-  },
-  {
-    key: 5,
-    numero: '5',
-    nome: 'Loteamento',
-    endereco: 'R. José Freitas Queiroz, 2127',
-    quixada: 'Quixadá - CE, 63900-000',
-    url: 'https://maps.google.com/?q=R.+José+Freitas+Queiroz,+2127,+Quixadá,+CE'
+const Transporte = () => {
+  const [ufcSchedules, setUfcSchedules] = useState(null);
+  const [ifceSchedules, setIfceSchedules] = useState(null);
+  const [paradas, setParadas] = useState([])
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Buscar horários da UFC
+        const ufcDoc = await getDoc(doc(db, 'onibus', 'onibusUFC'));
+        if (ufcDoc.exists()) {
+          setUfcSchedules(ufcDoc.data());
+        }
+
+        // Buscar horários do IFCE
+        const ifceDoc = await getDoc(doc(db, 'onibus', 'onibusIFCE'));
+        if (ifceDoc.exists()) {
+          setIfceSchedules(ifceDoc.data());
+        }
+
+         // Buscar paradas
+        const paradasDoc = await getDoc(doc(db, 'transporte', 'paradas'));
+        if (paradasDoc.exists()) {
+          setParadas(paradasDoc.data().lista || []);
+        }
+
+      } catch (error) {
+        console.error('Erro ao buscar horários:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+    if (loading) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <ActivityIndicator size="large" color="#9D1B1B" />
+        <Text style={{ marginTop: 10, color: '#9D1B1B' }}>Carregando informações...</Text>
+      </View>
+    );
   }
-]
+
+  //aqui ele vai gerar um card pra cada parada que vem do Firebase
+  const CardParadas = () => {
+    const abrirMaps = (url) => {
+      Linking.openURL(url).catch(err => console.error('Erro ao abrir o mapa:', err));
+    };
+    
+    return (
+      <View>
+        {paradas.map((parada, index) => (
+          <TouchableOpacity 
+            key={index} 
+            style={styles.cardParada}
+            onPress={() => abrirMaps(parada.url)}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.paradaNumero}>{parada.numero}. {parada.nome}</Text>
+            <Text style={styles.paradaEndereco}>{parada.endereco}</Text>
+            <Text style={styles.paradaQuixada}>{parada.cidade}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    );
+  };
+
+
+//gerando as tabelas com as celulas de antes
+const TabelaBusUFC = () => {
+    if (!ufcSchedules) return null;
+    
+    const maxLinhas = Math.max(
+      ufcSchedules.rodoviaria?.length || 0,
+      ufcSchedules.campus?.length || 0
+    );
+
+   return (
+    <DataTable>
+      <DataTable.Header>
+        <DataTable.Title style={styles.header}>
+          <Text style ={styles.textoMedio}>Saída da Rodoviária</Text>
+          </DataTable.Title>
+        <DataTable.Title style={styles.header}>
+          <Text style ={styles.textoMedio}>Saída do Campus</Text>
+          </DataTable.Title>
+      </DataTable.Header>
+
+      {/* aqui ele vai gerar uma linha da tabela pra cada coiso q tiver lá no firebase */}
+      {Array.from({ length: maxLinhas }).map((_, index) => (
+        <DataTable.Row key={index}>
+          <DataTable.Cell>
+            {ufcSchedules.rodoviaria[index] && (
+              <CelulaOnibus 
+                nome={ufcSchedules.rodoviaria[index].nome}
+                horario={ufcSchedules.rodoviaria[index].horario}
+              />
+            )}
+          </DataTable.Cell>
+          
+          <DataTable.Cell>
+            {ufcSchedules.campus[index] && (
+              <CelulaOnibus 
+                nome={ufcSchedules.campus[index].nome}
+                horario={ufcSchedules.campus[index].horario}
+              />
+            )}
+          </DataTable.Cell>
+        </DataTable.Row>
+      ))}
+    </DataTable>
+  );
+};
+
+const TabelaBusIFCE = () => {
+    if (!ifceSchedules) return null;
+    
+    const maxLinhas = Math.max(
+      ifceSchedules.rodoviaria?.length || 0,
+      ifceSchedules.campus?.length || 0
+    );
+
+   return (
+    <DataTable>
+      <DataTable.Header>
+        <DataTable.Title style={styles.header}>
+          <Text style ={styles.textoMedio}>Saída da Rodoviária</Text>
+          </DataTable.Title>
+        <DataTable.Title style={styles.header}>
+          <Text style ={styles.textoMedio}>Saída do Campus</Text>
+          </DataTable.Title>
+      </DataTable.Header>
+
+      {/*aqui ele vai gerar uma linha da tabela pra cada coiso q tiver lá no firebase */}
+      {Array.from({ length: maxLinhas }).map((_, index) => (
+        <DataTable.Row key={index}>
+          <DataTable.Cell>
+            {ifceSchedules.rodoviaria[index] && (
+              <CelulaOnibus 
+                nome={ifceSchedules.rodoviaria[index].nome}
+                horario={ifceSchedules.rodoviaria[index].horario}
+              />
+            )}
+          </DataTable.Cell>
+          
+          <DataTable.Cell>
+            {ifceSchedules.campus[index] && (
+              <CelulaOnibus 
+                nome={ifceSchedules.campus[index].nome}
+                horario={ifceSchedules.campus[index].horario}
+              />
+            )}
+          </DataTable.Cell>
+        </DataTable.Row>
+      ))}
+    </DataTable>
+  );
+};
+
+
+  return (
+    <ScrollView style={styles.infos}>
+      <View style ={styles.blocoInfo}>
+    <Text style={styles.titulo}>Itinerário dos ônibus - UFC</Text>
+    <TabelaBusUFC/>
+    </View>
+    <View style ={styles.blocoInfo}>
+    <Text style={styles.titulo}>Itinerário dos ônibus - IFCE</Text>
+    <TabelaBusIFCE/>
+    </View>
+    <View style ={styles.blocoInfo}>
+    <Text style={styles.titulo}>Paradas</Text>
+    <CardParadas/>
+    </View>
+    </ScrollView>
+  )
+}
 
 //aqui ele vai gerar um card pra cada parada que tiver na const anterior
 const CardParadas = () => {
@@ -71,202 +218,7 @@ const CardParadas = () => {
 );
 }
 
-//issaq vai pro firebase pq sao os horarios do onibus
-const ufc = [
-  {
-   key: 1,
-   rodoviaria: [
-      { nome: 'Ônibus A', horario: '07h10' },
-      { nome: 'Ônibus B', horario: '07h15' },
-      { nome: 'Ônibus A', horario: '07h40' },
-      { nome: 'Ônibus B', horario: '07h45' },
-      { nome: 'Ônibus A', horario: '09h35' },
-      { nome: 'Ônibus B', horario: '11h25' },
-      { nome: 'Ônibus A', horario: '11h45' },
-      { nome: 'Ônibus B', horario: '12h05' },
-      { nome: 'Ônibus A', horario: '12h15' },
-      { nome: 'Ônibus B', horario: '12h35' },
-      { nome: 'Ônibus A', horario: '12h50' },
-      { nome: 'Ônibus B', horario: '13h05' },
-      { nome: 'Ônibus A', horario: '13h30' },
-      { nome: 'Ônibus B', horario: '15h30' },
-      { nome: 'Ônibus A', horario: '16h00' },
-      { nome: 'Ônibus B', horario: '17h35' },
-      { nome: 'Ônibus A', horario: '17h45' },
-      { nome: 'Ônibus B', horario: '18h05' },
-      { nome: 'Ônibus A', horario: '18h15' },
-      { nome: 'Ônibus B', horario: '18h35' },
-      { nome: 'Ônibus A', horario: '18h45' },
-  ],
-   campus: [
-      { nome: 'Ônibus A', horario: '07h25' },
-      { nome: 'Ônibus A', horario: '07h30' },
-      { nome: 'Ônibus A', horario: '09h20' },
-      { nome: 'Ônibus B', horario: '11h10' },
-      { nome: 'Ônibus A', horario: '11h20' },
-      { nome: 'Ônibus B', horario: '11h40' },
-      { nome: 'Ônibus A', horario: '12h00' },
-      { nome: 'Ônibus B', horario: '12h20' },
-      { nome: 'Ônibus A', horario: '12h30' },
-      { nome: 'Ônibus B', horario: '12h50' },
-      { nome: 'Ônibus A', horario: '13h15' },
-      { nome: 'Ônibus B', horario: '15h15' },
-      { nome: 'Ônibus A', horario: '15h45' },
-      { nome: 'Ônibus B', horario: '17h20' },
-      { nome: 'Ônibus A', horario: '17h30' },
-      { nome: 'Ônibus B', horario: '17h50' },
-      { nome: 'Ônibus A', horario: '18h00' },
-      { nome: 'Ônibus B', horario: '18h20' },
-      { nome: 'Ônibus A', horario: '18h30' },
-      { nome: 'Ônibus B', horario: '22h10' },
-      { nome: 'Ônibus A', horario: 'GARAGEM' },
-  ]
-}
-]
 
-//issaq tbm
-const ifce = [
-  {
-   key: 2,
-   rodoviaria: [
-       { nome: 'Ônibus A', horario: '07h20' },
-      { nome: 'Ônibus B', horario: '07h21' },
-      { nome: 'Ônibus A', horario: '09h10' },
-      { nome: 'Ônibus B', horario: '13h15' },
-      { nome: 'Ônibus A', horario: '13h30' },
-      { nome: 'Ônibus B', horario: '15h10' },
-      { nome: 'Ônibus A', horario: '18h10' },
-      { nome: 'Ônibus B', horario: '18h35' },
-      { nome: 'Ônibus A', horario: '20h15' },
-  ],
-   campus: [
-   { nome: 'Ônibus A', horario: '09h40' },
-      { nome: 'Ônibus B', horario: '11h30' },
-      { nome: 'Ônibus A', horario: '11h50' },
-      { nome: 'Ônibus B', horario: '12h' },
-      { nome: 'Ônibus A', horario: '15h40' },
-      { nome: 'Ônibus B', horario: '17h30' },
-      { nome: 'Ônibus A', horario: '17h50' },
-      { nome: 'Ônibus B', horario: '18h' },
-      { nome: 'Ônibus A', horario: '21h45' },
-  ]
-}
-]
-
-//dizendo como q cada célula vai ser
-const CelulaOnibus = ({nome, horario}) => (
-  <View style={styles.cellContent}>
-    <Text style={styles.cellNome}>{nome}</Text>
-    <Text style={styles.cellHorario}>{horario}</Text>
-  </View>
-)
-
-//gerando as tabelas com as celulas de antes
-const TabelaBusUFC = () => {
-  const maxLinhas = Math.max(
-    ufc[0].rodoviaria.length,
-    ufc[0].campus.length
-  )
-
-   return (
-    <DataTable>
-      <DataTable.Header>
-        <DataTable.Title style={styles.header}>
-          <Text style ={styles.textoMedio}>Saída da Rodoviária</Text>
-          </DataTable.Title>
-        <DataTable.Title style={styles.header}>
-          <Text style ={styles.textoMedio}>Saída do Campus</Text>
-          </DataTable.Title>
-      </DataTable.Header>
-
-      {/* aqui ele vai gerar uma linha da tabela pra cada coiso q tiver lá no firebase */}
-      {Array.from({ length: maxLinhas }).map((_, index) => (
-        <DataTable.Row key={index}>
-          <DataTable.Cell>
-            {ufc[0].rodoviaria[index] && (
-              <CelulaOnibus 
-                nome={ufc[0].rodoviaria[index].nome}
-                horario={ufc[0].rodoviaria[index].horario}
-              />
-            )}
-          </DataTable.Cell>
-          
-          <DataTable.Cell>
-            {ufc[0].campus[index] && (
-              <CelulaOnibus 
-                nome={ufc[0].campus[index].nome}
-                horario={ufc[0].campus[index].horario}
-              />
-            )}
-          </DataTable.Cell>
-        </DataTable.Row>
-      ))}
-    </DataTable>
-  );
-};
-
-const TabelaBusIFCE = () => {
-  const maxLinhas = Math.max(
-    ifce[0].rodoviaria.length,
-    ifce[0].campus.length
-  )
-
-   return (
-    <DataTable>
-      <DataTable.Header>
-        <DataTable.Title style={styles.header}>
-          <Text style ={styles.textoMedio}>Saída da Rodoviária</Text>
-          </DataTable.Title>
-        <DataTable.Title style={styles.header}>
-          <Text style ={styles.textoMedio}>Saída do Campus</Text>
-          </DataTable.Title>
-      </DataTable.Header>
-
-      {/*aqui ele vai gerar uma linha da tabela pra cada coiso q tiver lá no firebase */}
-      {Array.from({ length: maxLinhas }).map((_, index) => (
-        <DataTable.Row key={index}>
-          <DataTable.Cell>
-            {ifce[0].rodoviaria[index] && (
-              <CelulaOnibus 
-                nome={ifce[0].rodoviaria[index].nome}
-                horario={ifce[0].rodoviaria[index].horario}
-              />
-            )}
-          </DataTable.Cell>
-          
-          <DataTable.Cell>
-            {ifce[0].campus[index] && (
-              <CelulaOnibus 
-                nome={ifce[0].campus[index].nome}
-                horario={ifce[0].campus[index].horario}
-              />
-            )}
-          </DataTable.Cell>
-        </DataTable.Row>
-      ))}
-    </DataTable>
-  );
-};
-
-//renderizando td
-const Transporte = () => {
-  return (
-    <ScrollView style={styles.infos}>
-      <View style ={styles.blocoInfo}>
-    <Text style={styles.titulo}>Itinerário dos ônibus - UFC</Text>
-    <TabelaBusUFC/>
-    </View>
-    <View style ={styles.blocoInfo}>
-    <Text style={styles.titulo}>Itinerário dos ônibus - IFCE</Text>
-    <TabelaBusIFCE/>
-    </View>
-    <View style ={styles.blocoInfo}>
-    <Text style={styles.titulo}>Paradas</Text>
-    <CardParadas/>
-    </View>
-    </ScrollView>
-  )
-}
 
 const styles = StyleSheet.create({
     container: {
@@ -302,7 +254,7 @@ const styles = StyleSheet.create({
       color: '#000'
     },
     cardParada: {
-      marginBottom: 20,
+      marginBottom: 20
     },
     paradaNumero: {
       fontFamily: 'Urbanist_700Bold',
