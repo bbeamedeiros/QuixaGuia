@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import {useState} from 'react';
+import { useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Text, TextInput, Button, useTheme } from 'react-native-paper';
 import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
@@ -72,7 +72,7 @@ export default function LoginPage() {
                     label="E-mail"
                     mode="outlined"
                     placeholder="Digite seu e-mail"
-                    value={email} 
+                    value={email}
                     keyboardType="email-address"
                     autoCapitalize="none"
                     onChangeText={setEmail}
@@ -86,7 +86,7 @@ export default function LoginPage() {
                     mode="outlined"
                     placeholder=" ******"
                     secureTextEntry
-                    value={senha} 
+                    value={senha}
                     onChangeText={setSenha}
                     outlineColor='#1F5A2E'
                     activeOutlineColor="#1F5A2E"

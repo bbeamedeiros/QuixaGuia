@@ -7,7 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 const { width } = Dimensions.get('window');
 
 //dizendo como q cada célula vai ser
-const CelulaOnibus = ({nome, horario}) => (
+const CelulaOnibus = ({ nome, horario }) => (
   <View style={styles.cellContent}>
     <Text style={styles.cellNome}>{nome}</Text>
     <Text style={styles.cellHorario}>{horario}</Text>
@@ -35,7 +35,7 @@ const Transporte = () => {
           setIfceSchedules(ifceDoc.data());
         }
 
-         // Buscar paradas
+        // Buscar paradas
         const paradasDoc = await getDoc(doc(db, 'transporte', 'paradas'));
         if (paradasDoc.exists()) {
           setParadas(paradasDoc.data().lista || []);
@@ -51,7 +51,7 @@ const Transporte = () => {
     fetchData();
   }, []);
 
-    if (loading) {
+  if (loading) {
     return (
       <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
         <ActivityIndicator size="large" color="#9D1B1B" />
@@ -65,12 +65,12 @@ const Transporte = () => {
     const abrirMaps = (url) => {
       Linking.openURL(url).catch(err => console.error('Erro ao abrir o mapa:', err));
     };
-    
+
     return (
       <View>
         {paradas.map((parada, index) => (
-          <TouchableOpacity 
-            key={index} 
+          <TouchableOpacity
+            key={index}
             style={styles.cardParada}
             onPress={() => abrirMaps(parada.url)}
             activeOpacity={0.7}
@@ -84,208 +84,208 @@ const Transporte = () => {
     );
   };
 
-//gerando as tabelas com as celulas de antes
-const TabelaBusUFC = () => {
+  //gerando as tabelas com as celulas de antes
+  const TabelaBusUFC = () => {
     if (!ufcSchedules) return null;
-    
+
     const maxLinhas = Math.max(
       ufcSchedules.rodoviaria?.length || 0,
       ufcSchedules.campus?.length || 0
     );
 
-   return (
-    <DataTable>
-      <DataTable.Header>
-        <DataTable.Title style={styles.header}>
-          <Text style ={styles.textoMedio}>Saída da Rodoviária</Text>
+    return (
+      <DataTable>
+        <DataTable.Header>
+          <DataTable.Title style={styles.header}>
+            <Text style={styles.textoMedio}>Saída da Rodoviária</Text>
           </DataTable.Title>
-        <DataTable.Title style={styles.header}>
-          <Text style ={styles.textoMedio}>Saída do Campus</Text>
+          <DataTable.Title style={styles.header}>
+            <Text style={styles.textoMedio}>Saída do Campus</Text>
           </DataTable.Title>
-      </DataTable.Header>
+        </DataTable.Header>
 
-      {/* aqui ele vai gerar uma linha da tabela pra cada coiso q tiver lá no firebase */}
-      {Array.from({ length: maxLinhas }).map((_, index) => (
-        <DataTable.Row key={index}>
-          <DataTable.Cell>
-            {ufcSchedules.rodoviaria[index] && (
-              <CelulaOnibus 
-                nome={ufcSchedules.rodoviaria[index].nome}
-                horario={ufcSchedules.rodoviaria[index].horario}
-              />
-            )}
-          </DataTable.Cell>
-          
-          <DataTable.Cell>
-            {ufcSchedules.campus[index] && (
-              <CelulaOnibus 
-                nome={ufcSchedules.campus[index].nome}
-                horario={ufcSchedules.campus[index].horario}
-              />
-            )}
-          </DataTable.Cell>
-        </DataTable.Row>
-      ))}
-    </DataTable>
-  );
-};
+        {/* aqui ele vai gerar uma linha da tabela pra cada coiso q tiver lá no firebase */}
+        {Array.from({ length: maxLinhas }).map((_, index) => (
+          <DataTable.Row key={index}>
+            <DataTable.Cell>
+              {ufcSchedules.rodoviaria[index] && (
+                <CelulaOnibus
+                  nome={ufcSchedules.rodoviaria[index].nome}
+                  horario={ufcSchedules.rodoviaria[index].horario}
+                />
+              )}
+            </DataTable.Cell>
 
-const TabelaBusIFCE = () => {
+            <DataTable.Cell>
+              {ufcSchedules.campus[index] && (
+                <CelulaOnibus
+                  nome={ufcSchedules.campus[index].nome}
+                  horario={ufcSchedules.campus[index].horario}
+                />
+              )}
+            </DataTable.Cell>
+          </DataTable.Row>
+        ))}
+      </DataTable>
+    );
+  };
+
+  const TabelaBusIFCE = () => {
     if (!ifceSchedules) return null;
-    
+
     const maxLinhas = Math.max(
       ifceSchedules.rodoviaria?.length || 0,
       ifceSchedules.campus?.length || 0
     );
 
-   return (
-    <DataTable>
-      <DataTable.Header>
-        <DataTable.Title style={styles.header}>
-          <Text style ={styles.textoMedio}>Saída da Rodoviária</Text>
+    return (
+      <DataTable>
+        <DataTable.Header>
+          <DataTable.Title style={styles.header}>
+            <Text style={styles.textoMedio}>Saída da Rodoviária</Text>
           </DataTable.Title>
-        <DataTable.Title style={styles.header}>
-          <Text style ={styles.textoMedio}>Saída do Campus</Text>
+          <DataTable.Title style={styles.header}>
+            <Text style={styles.textoMedio}>Saída do Campus</Text>
           </DataTable.Title>
-      </DataTable.Header>
+        </DataTable.Header>
 
-      {/*aqui ele vai gerar uma linha da tabela pra cada coiso q tiver lá no firebase */}
-      {Array.from({ length: maxLinhas }).map((_, index) => (
-        <DataTable.Row key={index}>
-          <DataTable.Cell>
-            {ifceSchedules.rodoviaria[index] && (
-              <CelulaOnibus 
-                nome={ifceSchedules.rodoviaria[index].nome}
-                horario={ifceSchedules.rodoviaria[index].horario}
-              />
-            )}
-          </DataTable.Cell>
-          
-          <DataTable.Cell>
-            {ifceSchedules.campus[index] && (
-              <CelulaOnibus 
-                nome={ifceSchedules.campus[index].nome}
-                horario={ifceSchedules.campus[index].horario}
-              />
-            )}
-          </DataTable.Cell>
-        </DataTable.Row>
-      ))}
-    </DataTable>
-  );
-};
+        {/*aqui ele vai gerar uma linha da tabela pra cada coiso q tiver lá no firebase */}
+        {Array.from({ length: maxLinhas }).map((_, index) => (
+          <DataTable.Row key={index}>
+            <DataTable.Cell>
+              {ifceSchedules.rodoviaria[index] && (
+                <CelulaOnibus
+                  nome={ifceSchedules.rodoviaria[index].nome}
+                  horario={ifceSchedules.rodoviaria[index].horario}
+                />
+              )}
+            </DataTable.Cell>
+
+            <DataTable.Cell>
+              {ifceSchedules.campus[index] && (
+                <CelulaOnibus
+                  nome={ifceSchedules.campus[index].nome}
+                  horario={ifceSchedules.campus[index].horario}
+                />
+              )}
+            </DataTable.Cell>
+          </DataTable.Row>
+        ))}
+      </DataTable>
+    );
+  };
 
   return (
     <ScrollView style={styles.infos}>
-      <View style ={styles.blocoInfo}>
-    <Text style={styles.titulo}>Itinerário dos ônibus - UFC</Text>
-    <TabelaBusUFC/>
-    </View>
-    <View style ={styles.blocoInfo}>
-    <Text style={styles.titulo}>Itinerário dos ônibus - IFCE</Text>
-    <TabelaBusIFCE/>
-    </View>
-    <View style ={styles.blocoInfo}>
-    <Text style={styles.titulo}>Paradas</Text>
-    <CardParadas/>
-    </View>
+      <View style={styles.blocoInfo}>
+        <Text style={styles.titulo}>Itinerário dos ônibus - UFC</Text>
+        <TabelaBusUFC />
+      </View>
+      <View style={styles.blocoInfo}>
+        <Text style={styles.titulo}>Itinerário dos ônibus - IFCE</Text>
+        <TabelaBusIFCE />
+      </View>
+      <View style={styles.blocoInfo}>
+        <Text style={styles.titulo}>Paradas</Text>
+        <CardParadas />
+      </View>
     </ScrollView>
   )
 }
 
 //aqui ele vai gerar um card pra cada parada que tiver na const anterior
 const CardParadas = () => {
- const abrirMaps = (url) => {
+  const abrirMaps = (url) => {
     Linking.openURL(url).catch(err => console.error('Erro ao abrir o mapa:', err));
   };
-  return(
-  <View>
-    {paradas.map((parada) => (
-       <TouchableOpacity 
-          key={parada.key} 
+  return (
+    <View>
+      {paradas.map((parada) => (
+        <TouchableOpacity
+          key={parada.key}
           style={styles.cardParada}
           onPress={() => abrirMaps(parada.url)}
           activeOpacity={0.7}
         >
-        <Text style={styles.paradaNumero}>{parada.numero}. {parada.nome}</Text>
-        <Text style={styles.paradaEndereco}>{parada.endereco}</Text>
-        <Text style={styles.paradaQuixada}>{parada.quixada}</Text>
-      </TouchableOpacity>
-    ))}
-  </View>
-);
+          <Text style={styles.paradaNumero}>{parada.numero}. {parada.nome}</Text>
+          <Text style={styles.paradaEndereco}>{parada.endereco}</Text>
+          <Text style={styles.paradaQuixada}>{parada.quixada}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        width: width, // Garante que ocupa a largura total da página no ScrollView
-        flex: 1,
-        alignItems: 'left',
-        backgroundColor: '#F4FFE1',
-        padding: 28,
-    },
-    blocoInfo: {
-      paddingBottom: 28
-    },
-    textoPequeno: {
-        fontFamily: 'Urbanist_400Regular',
-        fontSize: 16,
+  container: {
+    width: width, // Garante que ocupa a largura total da página no ScrollView
+    flex: 1,
+    alignItems: 'left',
+    backgroundColor: '#F4FFE1',
+    padding: 28,
+  },
+  blocoInfo: {
+    paddingBottom: 28
+  },
+  textoPequeno: {
+    fontFamily: 'Urbanist_400Regular',
+    fontSize: 16,
 
-    },
-    titulo: {
-        fontFamily: 'TiltWarp_400Regular',
-        color: '#9D1B1B',
-        fontSize: 36,
-    },
-    infos: {
-        padding: 14,
-    },
-    header: {
-      backgroundColor: '#D4EFB1',
-      justifyContent: 'center',
-    },
-    textoMedio: {
-      fontFamily: 'Urbanist_700Bold',
-      fontSize: 16,
-      color: '#000'
-    },
-    cardParada: {
-      marginBottom: 20
-    },
-    paradaNumero: {
-      fontFamily: 'Urbanist_700Bold',
-      fontSize: 18,
-      color: '#9D1B1B',
-      marginBottom: 4,
-    },
-    paradaEndereco: {
-      fontFamily: 'Urbanist_400Regular',
-      fontSize: 16,
-      color: '#000',
-      marginBottom: 2,
-    },
-    paradaQuixada: {
-      fontFamily: 'Urbanist_400Regular',
-      fontSize: 14,
-      color: '#666',
-    },
-     cellContent: {
-        flexDirection: 'column',
-        alignItems: 'left',
-        justifyContent: 'center',
-        padding: 8
-    },
-    cellNome: {
-        fontFamily: 'Urbanist_500Medium',
-        fontSize: 14,
-        color: '#21582B',
-        marginBottom: 4,
-    },
-    cellHorario: {
-        fontFamily: 'Urbanist_700Bold',
-        fontSize: 16,
-        color: '#000',
-    }
+  },
+  titulo: {
+    fontFamily: 'TiltWarp_400Regular',
+    color: '#9D1B1B',
+    fontSize: 36,
+  },
+  infos: {
+    padding: 14,
+  },
+  header: {
+    backgroundColor: '#D4EFB1',
+    justifyContent: 'center',
+  },
+  textoMedio: {
+    fontFamily: 'Urbanist_700Bold',
+    fontSize: 16,
+    color: '#000'
+  },
+  cardParada: {
+    marginBottom: 20
+  },
+  paradaNumero: {
+    fontFamily: 'Urbanist_700Bold',
+    fontSize: 18,
+    color: '#9D1B1B',
+    marginBottom: 4,
+  },
+  paradaEndereco: {
+    fontFamily: 'Urbanist_400Regular',
+    fontSize: 16,
+    color: '#000',
+    marginBottom: 2,
+  },
+  paradaQuixada: {
+    fontFamily: 'Urbanist_400Regular',
+    fontSize: 14,
+    color: '#666',
+  },
+  cellContent: {
+    flexDirection: 'column',
+    alignItems: 'left',
+    justifyContent: 'center',
+    padding: 8
+  },
+  cellNome: {
+    fontFamily: 'Urbanist_500Medium',
+    fontSize: 14,
+    color: '#21582B',
+    marginBottom: 4,
+  },
+  cellHorario: {
+    fontFamily: 'Urbanist_700Bold',
+    fontSize: 16,
+    color: '#000',
+  }
 })
 
 export default Transporte;

@@ -7,19 +7,19 @@ import { useRouter } from 'expo-router';
 export default function Splash() {
     const router = useRouter();
 
-    useEffect (() => {
+    useEffect(() => {
         //tempo de espera
         const timer = setTimeout(() => {
             //navega para a tela de bem-vindo
-            router.replace ('/BemVindo');
+            router.replace('/BemVindo');
         }, 1500);  // 2000 equivale a 1,5 segundos
-        
+
         return () => clearTimeout(timer);
     }, []);
 
     return (
         <View style={styles.container}>
-            <Image 
+            <Image
                 source={require('../assets/images/QUIXAGUIA.png')}
                 style={styles.logo}
                 resizeMode='contain'

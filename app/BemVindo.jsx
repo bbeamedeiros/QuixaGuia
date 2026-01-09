@@ -3,10 +3,10 @@ import { View, Text, StyleSheet, Image, ScrollView, Dimensions } from 'react-nat
 import { useRouter } from 'expo-router';
 import LoginPage from './Login';
 import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
-import { 
-  Urbanist_400Regular, 
-  Urbanist_500Medium, 
-  Urbanist_700Bold 
+import {
+    Urbanist_400Regular,
+    Urbanist_500Medium,
+    Urbanist_700Bold
 } from '@expo-google-fonts/urbanist';
 
 //pega a largura da tela
@@ -29,7 +29,7 @@ export default function BemVindo() {
         const offset = event.nativeEvent.contentOffset.x; //quantos pixels foram empurrados?
         const activePage = Math.round(offset / width);//divisão para descobrir o índice da página
         setPage(activePage); //resultado
-    
+
     };
     return (
         <View style={styles.container}>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         paddingTop: 130,
         paddingBottom: 100,
         alignItems: 'center',
-        
+
     },
     logo: {
         fontFamily: 'TiltWarp_400Regular',
