@@ -3,20 +3,21 @@ import { Avatar, Button, Card} from 'react-native-paper';
 
 const { width } = Dimensions.get('window');
 
-
-const LeftContent = props => <Avatar.Icon {...props} icon="emoticon-kiss" />
+const LeftContent = () => (
+    <Avatar.Icon size={36} icon="emoticon-kiss" />
+);
 
 const CardImovel = () => (
-  <Card>
+  <Card style={styles.containerImovel}>
     <Card.Title title="Jean Maynard" subtitle="Proprietário" left={LeftContent} />
     <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
     <Card.Content>
-      <Text>R$ 450,00</Text>
-      <Text>Rua Basílio Emiliano Pinto, nº 243</Text>
+      <Text style={styles.textoMedio}>R$ 450,00</Text>
+      <Text style={styles.textoPequeno}>Rua Basílio Emiliano Pinto, nº 243</Text>
+      <Text style={styles.textoPequeno}>Apartamento localizado no Centro, clique para ver mais informações.</Text>
     </Card.Content>
-
     <Card.Actions>
-      <Button>Ver Mais</Button>
+      <Button style={styles.btn}><Text style={styles.btn}>Ver Mais</Text></Button>
     </Card.Actions>
   </Card>
 );
@@ -41,9 +42,13 @@ const styles = StyleSheet.create({
   blocoInfo: {
     paddingBottom: 28
   },
+  containerImovel: {
+   backgroundColor: '#d3e5b3' ,
+  },
   textoPequeno: {
-    fontFamily: 'Urbanist_400Regular',
-    fontSize: 16,
+    fontSize: 14,
+    paddingTop: 12,
+    color: '#5d5d5d'
 
   },
   titulo: {
@@ -59,46 +64,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textoMedio: {
-    fontFamily: 'Urbanist_700Bold',
     fontSize: 16,
+    paddingTop: 12,
     color: '#000'
   },
-  cardParada: {
-    marginBottom: 20
-  },
-  paradaNumero: {
-    fontFamily: 'Urbanist_700Bold',
-    fontSize: 18,
-    color: '#9D1B1B',
-    marginBottom: 4,
-  },
-  paradaEndereco: {
-    fontFamily: 'Urbanist_400Regular',
-    fontSize: 16,
-    color: '#000',
-    marginBottom: 2,
-  },
-  paradaQuixada: {
-    fontFamily: 'Urbanist_400Regular',
-    fontSize: 14,
-    color: '#666',
-  },
-  cellContent: {
-    flexDirection: 'column',
-    alignItems: 'left',
-    justifyContent: 'center',
-    padding: 8
-  },
-  cellNome: {
-    fontFamily: 'Urbanist_500Medium',
-    fontSize: 14,
-    color: '#21582B',
-    marginBottom: 4,
-  },
-  cellHorario: {
-    fontFamily: 'Urbanist_700Bold',
-    fontSize: 16,
-    color: '#000',
+  btn: {
+    backgroundColor: '#21582B',
+    color:'#FFF'
   }
 })
 

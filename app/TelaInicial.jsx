@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { Text, Appbar, Searchbar, BottomNavigation } from 'react-native-paper';
+import { Text, Appbar, Searchbar, BottomNavigation, Avatar } from 'react-native-paper';
 import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
 import {
   Urbanist_400Regular,
@@ -22,10 +22,17 @@ export default function Home() {
   });
 
   //botando a appBar com a Search bar dentro
+const FotoUsuario = () => (
+  <View style={styles.fotoUsuario}>
+    <Avatar.Icon size={48} backgroundColor={'#3a0858'} icon="emoticon-cool" />
+    </View>
+);
+
   const AppBar = () => (
     <Appbar.Header style={styles.appbar}>
       <Appbar.Action icon="menu" color="#F4FFE1" onPress={() => { }} />
       <SearchBar />
+      <FotoUsuario/>
     </Appbar.Header>
   );
 
@@ -40,6 +47,8 @@ export default function Home() {
       />
     );
   };
+
+
 
   //aqui já são as telas, que estao atreladas à navbar
   const TelaInicial = () => (
@@ -121,6 +130,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#D4Efb1',
     width: 250,
     borderRadius: 28
+  },
+  fotoUsuario:{
+    paddingLeft: 12
   },
   textoPequeno: {
     fontFamily: 'Urbanist_400Regular',
