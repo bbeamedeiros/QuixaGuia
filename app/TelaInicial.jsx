@@ -9,6 +9,7 @@ import {
   Urbanist_700Bold
 } from '@expo-google-fonts/urbanist';
 import Transporte from './Transporte';
+import Imoveis from './Imoveis'
 
 const { width } = Dimensions.get('window');
 
@@ -54,17 +55,15 @@ export default function Home() {
 
   const ImoveisRoute = () => (
     <View style={styles.container}>
-      <AppBar />
-      <View style={styles.infos}>
-        <Text style={styles.titulo}>Imóveis</Text>
-      </View>
+      <AppBar/>
+      <Imoveis/>
     </View>
   )
 
   const TransporteRoute = () => (
     <View style={styles.container}>
-      <AppBar />
-      <Transporte />
+      <AppBar/>
+      <Transporte/>
     </View>
   )
 
