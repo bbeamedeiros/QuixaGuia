@@ -21,6 +21,82 @@ export default function Home() {
     Urbanist_700Bold,
   });
 
+{/*import React from 'react';
+import { Image, ScrollView, Dimensions } from 'react-native';
+import { useTheme } from 'react-native-paper';
+
+const { width } = Dimensions.get('window');
+
+const CarouselExample_MultiBrowse = () => {
+  const theme = useTheme();
+
+  const items = [
+    { id: 0, imageUri: 'https://picsum.photos/200/300?random=1', contentDescription: 'cupcake' },
+    { id: 1, imageUri: 'https://picsum.photos/200/300?random=2', contentDescription: 'donut' },
+    { id: 2, imageUri: 'https://picsum.photos/200/300?random=3', contentDescription: 'eclair' },
+    { id: 3, imageUri: 'https://picsum.photos/200/300?random=4', contentDescription: 'froyo' },
+    { id: 4, imageUri: 'https://picsum.photos/200/300?random=5', contentDescription: 'gingerbread' },
+  ];
+
+  const preferredItemWidth = 186;
+  const itemSpacing = 8;
+  const horizontalPadding = 16;
+
+  return (
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={[
+        styles.scrollContainer,
+        { paddingHorizontal: horizontalPadding }
+      ]}
+      style={styles.carousel}
+    >
+      {items.map((item, index) => (
+        <View
+          key={item.id}
+          style={[
+            styles.itemContainer,
+            {
+              width: preferredItemWidth,
+              marginRight: index < items.length - 1 ? itemSpacing : 0,
+            }
+          ]}
+        >
+          <Image
+            source={{ uri: item.imageUri }}
+            style={[
+              styles.image,
+              { borderRadius: theme.roundness * 3 } // extraLarge shape
+            ]}
+            accessibilityLabel={item.contentDescription}
+            resizeMode="cover"
+          />
+        </View>
+      ))}
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  carousel: {
+    marginTop: 16,
+    marginBottom: 16,
+  },
+  scrollContainer: {
+    alignItems: 'center',
+  },
+  itemContainer: {
+    height: 205,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+});
+
+export default CarouselExample_MultiBrowse; */}
+
   //botando a appBar com a Search bar dentro
 const FotoUsuario = () => (
   <View style={styles.fotoUsuario}>
@@ -59,6 +135,7 @@ const FotoUsuario = () => (
         <Text style={styles.titulo}>Descubra</Text>
         <Text style={styles.textoPequeno}>Fique por dentro de eventos futuros</Text>
       </View>
+      
     </View>
   )
 

@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, Dimensions, Linking, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Avatar, Button, Card} from 'react-native-paper';
+import { useRouter } from 'expo-router'
 
 const { width } = Dimensions.get('window');
 
@@ -7,7 +8,17 @@ const LeftContent = () => (
     <Avatar.Icon size={36} icon="emoticon-kiss" />
 );
 
-const CardImovel = () => (
+const CardImovel = ({id, titulo, proprietario, preco, endereco, descricao, imagem}) => {
+  const router = useRouter();
+
+  const handleVerMais = () => {
+    router.push ({
+      pathname: '/detalhes-imovel',
+      params: {id}
+    })
+  }
+
+  return (
   <Card style={styles.containerImovel}>
     <Card.Title title="Jean Maynard" subtitle="Proprietário" left={LeftContent} />
     <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
@@ -17,16 +28,19 @@ const CardImovel = () => (
       <Text style={styles.textoPequeno}>Apartamento localizado no Centro, clique para ver mais informações.</Text>
     </Card.Content>
     <Card.Actions>
-      <Button style={styles.btn}><Text style={styles.btn}>Ver Mais</Text></Button>
+      <Button style={styles.btn}
+        onPress={handleVerMais}
+      ><Text style={styles.btn}>Ver Mais</Text></Button>
     </Card.Actions>
   </Card>
-);
+  )
+};
 
 const Imoveis = () => {
     return (
 <View style={styles.infos}>
     <Text style={styles.titulo}>Imóveis</Text>
-    <CardImovel/>
+    <CardImovel id="1" preco="450,00"/>
       </View>
       )
 }
