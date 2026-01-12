@@ -14,7 +14,6 @@ const CardImovel = ({id, titulo, proprietario, preco, endereco, descricao, image
   const handleVerMais = () => {
     router.push ({
       pathname: '/detalhes-imovel',
-      params: {id}
     })
   }
 
@@ -40,7 +39,7 @@ const Imoveis = () => {
     return (
 <View style={styles.infos}>
     <Text style={styles.titulo}>Imóveis</Text>
-    <CardImovel id="1" preco="450,00"/>
+    <CardImovel/>
       </View>
       )
 }
