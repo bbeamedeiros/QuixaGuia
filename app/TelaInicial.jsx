@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { Text, Appbar, Searchbar, BottomNavigation, Avatar } from 'react-native-paper';
+import { View, StyleSheet, Dimensions, ScrollView, Image } from 'react-native';
+import { Text, Appbar, Searchbar, BottomNavigation, Avatar, useTheme, Icon } from 'react-native-paper';
 import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
 import {
   Urbanist_400Regular,
@@ -21,81 +21,51 @@ export default function Home() {
     Urbanist_700Bold,
   });
 
-{/*import React from 'react';
-import { Image, ScrollView, Dimensions } from 'react-native';
-import { useTheme } from 'react-native-paper';
-
-const { width } = Dimensions.get('window');
-
-const CarouselExample_MultiBrowse = () => {
+const Carrossel = ({items}) => {
   const theme = useTheme();
 
-  const items = [
-    { id: 0, imageUri: 'https://picsum.photos/200/300?random=1', contentDescription: 'cupcake' },
-    { id: 1, imageUri: 'https://picsum.photos/200/300?random=2', contentDescription: 'donut' },
-    { id: 2, imageUri: 'https://picsum.photos/200/300?random=3', contentDescription: 'eclair' },
-    { id: 3, imageUri: 'https://picsum.photos/200/300?random=4', contentDescription: 'froyo' },
-    { id: 4, imageUri: 'https://picsum.photos/200/300?random=5', contentDescription: 'gingerbread' },
-  ];
-
-  const preferredItemWidth = 186;
+  const preferredItemWidth = 150;
   const itemSpacing = 8;
-  const horizontalPadding = 16;
+  const horizontalPadding = 8;
 
   return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={[
-        styles.scrollContainer,
-        { paddingHorizontal: horizontalPadding }
-      ]}
-      style={styles.carousel}
-    >
-      {items.map((item, index) => (
-        <View
-          key={item.id}
-          style={[
-            styles.itemContainer,
-            {
-              width: preferredItemWidth,
-              marginRight: index < items.length - 1 ? itemSpacing : 0,
-            }
-          ]}
-        >
-          <Image
-            source={{ uri: item.imageUri }}
+    <>
+      
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={[
+          styles.scrollContainer,
+          { paddingHorizontal: horizontalPadding }
+        ]}
+        style={styles.carousel}
+      >
+        {items.map((item, index) => (
+          <View
+            key={item.id}
             style={[
-              styles.image,
-              { borderRadius: theme.roundness * 3 } // extraLarge shape
+              styles.itemContainer,
+              {
+                width: preferredItemWidth,
+                marginRight: index < items.length - 1 ? itemSpacing : 0,
+              }
             ]}
-            accessibilityLabel={item.contentDescription}
-            resizeMode="cover"
-          />
-        </View>
-      ))}
-    </ScrollView>
+          >
+            <Image
+              source={{ uri: item.imageUri }}
+              style={[
+                styles.image,
+                { borderRadius: theme.roundness * 3 }
+              ]}
+              accessibilityLabel={item.contentDescription}
+              resizeMode="cover"
+            />
+          </View>
+        ))}
+      </ScrollView>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  carousel: {
-    marginTop: 16,
-    marginBottom: 16,
-  },
-  scrollContainer: {
-    alignItems: 'center',
-  },
-  itemContainer: {
-    height: 205,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-});
-
-export default CarouselExample_MultiBrowse; */}
 
   //botando a appBar com a Search bar dentro
 const FotoUsuario = () => (
@@ -124,21 +94,44 @@ const FotoUsuario = () => (
     );
   };
 
-
-
   //aqui já são as telas, que estao atreladas à navbar
-  const TelaInicial = () => (
-    <View style={styles.container}>
-      <AppBar />
-      <View style={styles.infos}>
-        <Text style={styles.textoPequeno}>R. Basílio Emiliano Pinto, 243</Text>
-        <Text style={styles.titulo}>Descubra</Text>
-        <Text style={styles.textoPequeno}>Fique por dentro de eventos futuros</Text>
-      </View>
-      
-    </View>
-  )
+  const TelaInicial = () => {
+const eventosItems = [
+    { id: 0, imageUri: 'https://i.pinimg.com/736x/09/73/66/0973665d2b868d76c93d686c3c17a5c9.jpg', contentDescription: 'evento1' },
+    { id: 1, imageUri: 'https://i.pinimg.com/736x/70/3d/24/703d24642637b21bdc3fbf2c08cd57da.jpg', contentDescription: 'evento2' },
+    { id: 2, imageUri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2zMOUexaAc1mpzQP7OMI-j2UKraKxQf7vIQ&s', contentDescription: 'evento3' },
+  ];
 
+  const lugaresItems = [
+    { id: 0, imageUri: 'https://imgs.search.brave.com/pCR-KpHHC3YQyDOE16xELd-9T7oJFrn4Frwhxtwz5Vc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZW51/LnJlc3RhdXJhbnRn/dXJ1LmNvbS9tMC9R/LURvY2UtUXVpeGFk/YS1JLVBhc3RlbGFy/aWEtSS1IYW1idXJn/dWVyaWEtZS1QaXp6/YXJpYS1SZXN0YXVy/YW50LW1lbnUtMS5q/cGc', contentDescription: 'novidade1' },
+    { id: 1, imageUri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTafB_-cfJYH2okH4jG0ufqAV3tNRkLD0c52A&s', contentDescription: 'novidade2' },
+    { id: 2, imageUri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-R5u1H-z3-dRszrnykgD_EE32MZjhQad1nA&s', contentDescription: 'novidade3' },
+  ];
+
+    return(
+  <View style={styles.container}>
+    <AppBar/>
+    <ScrollView>
+    
+      <View style={styles.infos}>
+       <View style={styles.localContainer}>
+    <Icon source="pin" size={20} color="#000" />
+    <Text style={[styles.textoPequeno, { textDecorationLine: 'underline' }, {fontWeight: 'bold'}]}>Rua Basílio Emiliano Pinto nº 243</Text>
+    </View>
+        <Text style={styles.titulo}>Descubra</Text>
+        <Text style={styles.textoPequeno}>Fique por dentro de eventos futuros</Text> 
+      </View>
+      <Carrossel items={eventosItems}/>
+      
+      <View style={styles.infos}>
+        <Text style={styles.titulo}>Lugares</Text>
+        <Text style={styles.textoPequeno}>Confira as últimas atualizações</Text> 
+      </View>
+       <Carrossel items={lugaresItems} />
+    </ScrollView>
+  </View>
+)
+  }
   const ImoveisRoute = () => (
     <View style={styles.container}>
       <AppBar/>
@@ -152,7 +145,7 @@ const FotoUsuario = () => (
       <Transporte/>
     </View>
   )
-
+  
   const LugaresRoute = () => <Text>Indisponível nessa versão</Text>;
 
   const BottomNav = () => {
@@ -226,6 +219,25 @@ const styles = StyleSheet.create({
   },
   navBar: {
     backgroundColor: '#21582B',
-
+  },
+  localContainer: {
+    flexDirection: 'row',
+    gap: 10,
+    alignItems: 'center',
+    paddingBottom: 8
+  },
+  carousel: {
+    marginTop: 16,
+    marginBottom: 16,
+  },
+  scrollContainer: {
+    alignItems: 'center',
+  },
+  itemContainer: {
+    height: 205,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   }
 })
