@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { Text, TextInput, Button, useTheme } from 'react-native-paper';
+import { View, StyleSheet, Dimensions, Alert } from 'react-native';
+import { Text, TextInput, Button } from 'react-native-paper';
 import { useFonts, TiltWarp_400Regular } from '@expo-google-fonts/tilt-warp';
 import {
     Urbanist_400Regular,
@@ -103,6 +103,8 @@ export default function LoginPage() {
                 contentStyle={{ height: 50, width: 205 }}
                 style={{ marginTop: 30, borderRadius: 25 }}
                 labelStyle={{ fontFamily: 'Urbanist_700Bold' }}
+                accessibilityLabel={loading ? "Carregando login" : "Botão Entrar"}
+                accessibilityHint="Faz login no aplicativo com suas credenciais"
             >
                 {loading ? "Entrando..." : "Entrar"}
             </Button>
